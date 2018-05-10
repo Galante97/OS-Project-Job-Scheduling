@@ -12,6 +12,8 @@
 #include <stdio.h>
 #include <string>
 #include <cstring>
+#include "node.hpp"
+
 using namespace std;
 
 
@@ -24,7 +26,7 @@ public:
     void readFile();
     void inputCommand(string line);
     
-    void systemConfiguration();
+    void systemConfiguration(string line);
     void JobArrival();
     void requestForDevices();
     void releaseForDevices();
