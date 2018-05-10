@@ -15,7 +15,6 @@
 #include "systemConfigurations.h"
 using namespace std;
 
-
 void SubmitQueue::readFile() {
     std::ifstream file("sampleInput.txt");
     std::string str;
@@ -39,22 +38,22 @@ void SubmitQueue::inputCommand(string line)  {
             systemConfiguration(line);
             break;
         case 'A' : //Job Arrival
-            JobArrival();
+            JobArrival(line);
             break;
         case 'Q' : //Request for for devices
-            requestForDevices();
+            requestForDevices(line);
             break;
         case 'L' : //Release for devices
-            releaseForDevices();
+            releaseForDevices(line);
             break;
         case 'D' : //Display
-            display();
+            display(line);
             break;
 
     }
 }
 
-void SubmitQueue::systemConfiguration(string line){
+void SubmitQueue::systemConfiguration(string line) {
     int clock;
     int mem;
     int ser_devices;
@@ -87,10 +86,42 @@ void SubmitQueue::systemConfiguration(string line){
     //printf("time quantum = %d\n", sysConfig.q);
     
 }
-void SubmitQueue::JobArrival(){}
-void SubmitQueue::requestForDevices(){}
-void SubmitQueue::releaseForDevices(){}
-void SubmitQueue::display(){}
+void SubmitQueue::JobArrival(string line){
+    int clock;
+    int job_num;
+    int mem_reqir;
+    int serial_reqir;
+    int time_runLength;
+    int priority;
+
+    //erase all the useless text and leave nothing but the values
+    line.erase(std::find(line.begin(), line.end(), 'A')); // Erase A
+    line.erase(std::find(line.begin(), line.end(), 'J')); // Erase J
+    line.erase(std::find(line.begin(), line.end(), 'M')); // Erase M
+    line.erase(std::find(line.begin(), line.end(), 'S')); // Erase S
+    line.erase(std::find(line.begin(), line.end(), 'R')); // Erase R
+    line.erase(std::find(line.begin(), line.end(), 'P')); // Erase P
+    string::iterator x = remove(line.begin(), line.end(), '='); //Erase =
+    line.erase(x, line.end());
+    
+    stringstream ss(line);
+    ss >> clock >> job_num >> mem_reqir >> serial_reqir >> time_runLength >> priority;
+    
+    
+    Node jobArrival = *new Node(clock, job_num, mem_reqir, serial_reqir, time_runLength, priority);
+    //test of node
+    printf("clock = %d\n", jobArrival.clk_time);
+    printf("memory required = %d\n", jobArrival.m);
+    printf("serial devices required = %d\n", jobArrival.s);
+    printf("Job number = %d\n", jobArrival.j);
+    printf("units of time needed = %d\n", jobArrival.r);
+    printf("priority = %d\n", jobArrival.p);
+
+    
+}
+void SubmitQueue::requestForDevices(string line){}
+void SubmitQueue::releaseForDevices(string line){}
+void SubmitQueue::display(string line){}
 
 
 

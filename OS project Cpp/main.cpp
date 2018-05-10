@@ -34,7 +34,7 @@ int main(int argc, const char * argv[]) {
     SubmitQueue.readFile();
     
     //test
-    systemConfig_Test();
+    //systemConfig_Test();
   
 
     return 0;

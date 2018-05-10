@@ -27,10 +27,10 @@ public:
     void inputCommand(string line);
     
     void systemConfiguration(string line);
-    void JobArrival();
-    void requestForDevices();
-    void releaseForDevices();
-    void display();
+    void JobArrival(string line);
+    void requestForDevices(string line);
+    void releaseForDevices(string line);
+    void display(string line);
 
     
 };
