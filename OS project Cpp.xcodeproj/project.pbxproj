@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A1717DFB20A8E526002C7D84 /* HoldQueue1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A1717DF920A8E526002C7D84 /* HoldQueue1.cpp */; };
+		A1717DFE20A8E533002C7D84 /* HoldQueue2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A1717DFC20A8E533002C7D84 /* HoldQueue2.cpp */; };
 		A187182420A288550034B5F0 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A187182320A288550034B5F0 /* main.cpp */; };
 		A198576F20A3ADA20033323D /* submitQueue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A198576920A28E140033323D /* submitQueue.cpp */; };
 		A198577420A3E4AA0033323D /* node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A198577220A3E4AA0033323D /* node.cpp */; };
@@ -25,6 +27,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		A1717DF920A8E526002C7D84 /* HoldQueue1.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = HoldQueue1.cpp; sourceTree = "<group>"; };
+		A1717DFA20A8E526002C7D84 /* HoldQueue1.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = HoldQueue1.hpp; sourceTree = "<group>"; };
+		A1717DFC20A8E533002C7D84 /* HoldQueue2.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = HoldQueue2.cpp; sourceTree = "<group>"; };
+		A1717DFD20A8E533002C7D84 /* HoldQueue2.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = HoldQueue2.hpp; sourceTree = "<group>"; };
 		A187182020A288550034B5F0 /* OS project Cpp */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "OS project Cpp"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A187182320A288550034B5F0 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		A198576920A28E140033323D /* submitQueue.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = submitQueue.cpp; sourceTree = "<group>"; };
@@ -45,6 +51,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A1717DF820A8E4FE002C7D84 /* Hold Queues */ = {
+			isa = PBXGroup;
+			children = (
+				A1717DFA20A8E526002C7D84 /* HoldQueue1.hpp */,
+				A1717DF920A8E526002C7D84 /* HoldQueue1.cpp */,
+				A1717DFD20A8E533002C7D84 /* HoldQueue2.hpp */,
+				A1717DFC20A8E533002C7D84 /* HoldQueue2.cpp */,
+			);
+			path = "Hold Queues";
+			sourceTree = "<group>";
+		};
 		A187181720A288550034B5F0 = {
 			isa = PBXGroup;
 			children = (
@@ -68,6 +85,7 @@
 				A187182320A288550034B5F0 /* main.cpp */,
 				A198576A20A28E140033323D /* submitQueue.hpp */,
 				A198576920A28E140033323D /* submitQueue.cpp */,
+				A1717DF820A8E4FE002C7D84 /* Hold Queues */,
 				A198577320A3E4AA0033323D /* node.hpp */,
 				A198577220A3E4AA0033323D /* node.cpp */,
 			);
@@ -130,6 +148,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A1717DFE20A8E533002C7D84 /* HoldQueue2.cpp in Sources */,
+				A1717DFB20A8E526002C7D84 /* HoldQueue1.cpp in Sources */,
 				A198576F20A3ADA20033323D /* submitQueue.cpp in Sources */,
 				A187182420A288550034B5F0 /* main.cpp in Sources */,
 				A198577420A3E4AA0033323D /* node.cpp in Sources */,

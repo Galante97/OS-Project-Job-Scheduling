@@ -15,8 +15,11 @@ using namespace std;
 
 class Node {
     friend class SubmitQueue;
+    friend class HoldQueue1;
+    friend class HoldQueue2;
+    
     Node *next;
-    Node *prev;
+    //Node *prev;
     int count;
     
     int clk_time;
@@ -32,9 +35,10 @@ class Node {
    
 public:
     Node(int clk, int M, int S, int Q); //system Configuration
-    Node(int clk, int J, int M, int S, int R, int P); //Job arrival
+    Node(int clk, int J, int M, int S, int R, int P); //Job arrival 
     Node(int clk, int J, int D); //Request for device OR release for device
     Node(int clk); //display
+    Node();
 
 };
 

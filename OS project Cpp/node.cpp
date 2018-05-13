@@ -13,7 +13,7 @@ using namespace std;
 
 Node::Node(int clk, int M, int S, int Q) { //System Configuration
     next = NULL;
-    prev = NULL;
+    //prev = NULL;
     
     clk_time = clk;
     m = M;
@@ -24,7 +24,7 @@ Node::Node(int clk, int M, int S, int Q) { //System Configuration
 
 Node::Node(int clk, int J, int M, int S, int R, int P) { //Job arrival
     next = NULL;
-    prev = NULL;
+    //prev = NULL;
     
     clk_time = clk;
     j = J;
@@ -36,7 +36,7 @@ Node::Node(int clk, int J, int M, int S, int R, int P) { //Job arrival
 
 Node::Node(int clk, int J, int D) { //Request for device OR release for device
     next = NULL;
-    prev = NULL;
+    //prev = NULL;
     
     clk_time = clk;
     j = J;
@@ -45,9 +45,10 @@ Node::Node(int clk, int J, int D) { //Request for device OR release for device
 
 Node::Node(int clk) { //display
     next = NULL;
-    prev = NULL;
+    //prev = NULL;
     
     clk_time = clk;
+
 }
 
 

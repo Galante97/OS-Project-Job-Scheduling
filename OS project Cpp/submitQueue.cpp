@@ -29,10 +29,8 @@ void SubmitQueue::readFile() {
     }
 }
 
-
+  
 void SubmitQueue::inputCommand(string line)  {
-    //std::cout << line.at(0);
-    
     switch(line.at(0)){
         case 'C' : //System Configuration
             systemConfiguration(line);
@@ -77,7 +75,10 @@ void SubmitQueue::systemConfiguration(string line) {
     serialDevices = ser_devices;
     TimeSlice = t_slice;
     
-   Node sysConfig = *new Node(clock, mem, ser_devices, t_slice);
+    Node *sysConfig = new Node(clock, mem, ser_devices, t_slice);
+    HQ1.addAtEnd(sysConfig);
+    
+    //HQ1.addAtFront(*sysConfig);
     
     //test of node
     //printf("clock = %d\n", sysConfig.clk_time);
@@ -108,20 +109,83 @@ void SubmitQueue::JobArrival(string line){
     ss >> clock >> job_num >> mem_reqir >> serial_reqir >> time_runLength >> priority;
     
     
-    Node jobArrival = *new Node(clock, job_num, mem_reqir, serial_reqir, time_runLength, priority);
+    Node *jobArrival = new Node(clock, job_num, mem_reqir, serial_reqir, time_runLength, priority);
+    HQ1.addAtEnd(jobArrival);
+    
     //test of node
-    printf("clock = %d\n", jobArrival.clk_time);
-    printf("memory required = %d\n", jobArrival.m);
-    printf("serial devices required = %d\n", jobArrival.s);
-    printf("Job number = %d\n", jobArrival.j);
-    printf("units of time needed = %d\n", jobArrival.r);
-    printf("priority = %d\n", jobArrival.p);
+//    printf("clock = %d\n", jobArrival.clk_time);
+//    printf("memory required = %d\n", jobArrival.m);
+//    printf("serial devices required = %d\n", jobArrival.s);
+//    printf("Job number = %d\n", jobArrival.j);
+//    printf("units of time needed = %d\n", jobArrival.r);
+//    printf("priority = %d\n", jobArrival.p);
 
     
 }
-void SubmitQueue::requestForDevices(string line){}
-void SubmitQueue::releaseForDevices(string line){}
-void SubmitQueue::display(string line){}
+void SubmitQueue::requestForDevices(string line){
+    int clock;
+    int job_num;
+    int devices;
+    
+    //erase all the useless text and leave nothing but the values
+    line.erase(std::find(line.begin(), line.end(), 'Q')); // Erase Q
+    line.erase(std::find(line.begin(), line.end(), 'J')); // Erase J
+    line.erase(std::find(line.begin(), line.end(), 'D')); // Erase D
+    string::iterator x = remove(line.begin(), line.end(), '='); //Erase =
+    line.erase(x, line.end());
+    
+    stringstream ss(line);
+    ss >> clock >> job_num >> devices;
+    
+    Node *requestForDevices = new Node(clock, job_num, devices);
+    HQ1.addAtEnd(requestForDevices);
+    
+    //test of node
+    //printf("clock = %d\n", requestForDevices.clk_time);
+    //printf("job_num = %d\n", requestForDevices.j);
+    //printf("serial devices = %d\n", requestForDevices.d);
+    
+}
+void SubmitQueue::releaseForDevices(string line){
+    int clock;
+    int job_num;
+    int devices;
+    
+    //erase all the useless text and leave nothing but the values
+    line.erase(std::find(line.begin(), line.end(), 'L')); // Erase Q
+    line.erase(std::find(line.begin(), line.end(), 'J')); // Erase J
+    line.erase(std::find(line.begin(), line.end(), 'D')); // Erase D
+    string::iterator x = remove(line.begin(), line.end(), '='); //Erase =
+    line.erase(x, line.end());
+    
+    stringstream ss(line);
+    ss >> clock >> job_num >> devices;
+    job_num = job_num *-1; //since its releasing devices not adding
+    
+    Node *releaseForDevices = new Node(clock, job_num, devices);
+    HQ1.addAtEnd(releaseForDevices);
+    
+    //test of node
+    //printf("clock = %d\n", releaseForDevices.clk_time);
+    //printf("job_num = %d\n", releaseForDevices.j);
+    //printf("serial devices = %d\n", releaseForDevices.d);
+}
+void SubmitQueue::display(string line){
+    int clock;
+    
+    
+    //erase all the useless text and leave nothing but the values
+    line.erase(std::find(line.begin(), line.end(), 'D')); // Erase D
+
+    stringstream ss(line);
+    ss >> clock;
+    
+    Node *display = new Node(clock);
+    HQ1.addAtEnd(display);
+    
+    //test of node
+    //printf("clock = %d\n", display.clk_time);
+}
 
 
 

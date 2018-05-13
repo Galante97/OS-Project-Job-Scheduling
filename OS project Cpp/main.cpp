@@ -8,6 +8,8 @@
 
 #include <iostream>
 #include "submitQueue.hpp"
+#include "HoldQueue1.hpp"
+#include "HoldQueue2.hpp"
 #include "systemConfigurations.h"
 
 //global system configuation definitions
@@ -15,6 +17,8 @@ int clk;
 int memory;
 int serialDevices;
 int TimeSlice;
+HoldQueue1 HQ1;
+
 
 void systemConfig_Test() {
     printf("clock = %d\n", clk);
@@ -29,9 +33,16 @@ int main(int argc, const char * argv[]) {
     memory = 0;
     serialDevices = 0;
     TimeSlice = 0;
+
+    HQ1 = *new HoldQueue1;
+  
     
     SubmitQueue SubmitQueue;
     SubmitQueue.readFile();
+    
+    HQ1.printLL();
+    //cout << HQ1.size;
+    //printf("\n");
     
     //test
     //systemConfig_Test();
