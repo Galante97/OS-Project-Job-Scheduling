@@ -18,6 +18,7 @@ int memory;
 int serialDevices;
 int TimeSlice;
 HoldQueue1 HQ1;
+HoldQueue2 HQ2;
 
 
 void systemConfig_Test() {
@@ -34,14 +35,21 @@ int main(int argc, const char * argv[]) {
     serialDevices = 0;
     TimeSlice = 0;
 
+    //create Queues
     HQ1 = *new HoldQueue1;
-  
-    
+    HQ2 = *new HoldQueue2;
     SubmitQueue SubmitQueue;
+    
     SubmitQueue.readFile();
     
+
     HQ1.printLL();
-    //cout << HQ1.size;
+    cout << HQ1.size;
+    printf("\n");
+    
+    //unfilled for now
+    //HQ2.printLL();
+    //cout << "HQ2 count: " << HQ2.size;
     //printf("\n");
     
     //test

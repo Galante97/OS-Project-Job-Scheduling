@@ -12,6 +12,7 @@
 #include <stdio.h>
 #include "node.hpp"
 
+//SJF
 class HoldQueue1 {
     Node *first;
     Node *last;

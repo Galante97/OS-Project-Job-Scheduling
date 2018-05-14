@@ -28,7 +28,7 @@ HoldQueue1::HoldQueue1() { //constructor
     last = NULL;
 }*/
 void HoldQueue1::printLL() {
-    printf("\n");
+    printf("HQ1 LL: ");
     Node *tmp = first;
     while (tmp != NULL) {
         cout << tmp->clk_time << "->";

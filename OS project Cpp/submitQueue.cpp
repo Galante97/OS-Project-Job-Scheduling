@@ -28,8 +28,6 @@ void SubmitQueue::readFile() {
 
     }
 }
-
-  
 void SubmitQueue::inputCommand(string line)  {
     switch(line.at(0)){
         case 'C' : //System Configuration

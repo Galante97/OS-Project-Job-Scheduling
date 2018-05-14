@@ -10,12 +10,16 @@
 #define systemConfigurations_h
 
 #include "HoldQueue1.hpp"
+#include "HoldQueue2.hpp"
 
 extern int clk;
 extern int memory;
 extern int serialDevices;
 extern int TimeSlice;
 
-extern HoldQueue1 HQ1;
+extern HoldQueue1 HQ1; //linked list 1 SJF
+extern HoldQueue2 HQ2; //linked list 2 FIFO
+
 
 #endif /* systemConfigurations_h */
+
