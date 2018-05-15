@@ -31,10 +31,6 @@ void systemConfig_Test() {
     printf("time quantum = %d\n", TimeSlice);
 }
 
-void wait() {
-    clk++;
-}
-
 void pause(int dur) { //real life pause for testing only
     int temp = time(NULL) + dur;
     
@@ -58,15 +54,14 @@ int main(int argc, const char * argv[]) {
     std::string str;
     
    //main loop
-    while (std::getline(file, str)) {
+    while (std::getline(file, str)) { //iterate through each "Job"
         while(!SubmitQueue.checkCLKTime(str)) { //this is a "wait" while loop, if clk doesnt equal clock time
             clk++;
-            if(file.eof()) {
+            if(file.eof()) { //end of file
                 break;
             }
         }
         SubmitQueue.inputCommand(str); //this only runs when the clock matches the correct time in the line
-        
     }
     
     cout << "CLK: " << clk << "\n";
