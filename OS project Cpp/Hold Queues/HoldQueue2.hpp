@@ -26,6 +26,9 @@ public:
     
     void addFirst(Node *job);
     void addAtEnd(Node *job);
+    
+    void moveToRQueue(Node *job);
+    
     void printLL();
     
 };

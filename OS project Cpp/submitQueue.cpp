@@ -200,7 +200,6 @@ void SubmitQueue::releaseForDevices(string line){
 void SubmitQueue::display(string line){
     int clock;
     
-    
     //erase all the useless text and leave nothing but the values
     line.erase(std::find(line.begin(), line.end(), 'D')); // Erase D
 

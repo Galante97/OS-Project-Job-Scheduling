@@ -11,6 +11,7 @@
 
 #include "HoldQueue1.hpp"
 #include "HoldQueue2.hpp"
+#include "readyQueue.hpp"
 
 extern int clk;
 extern int memory;
@@ -19,6 +20,7 @@ extern int TimeSlice;
 
 extern HoldQueue1 HQ1; //linked list 1 SJF
 extern HoldQueue2 HQ2; //linked list 2 FIFO
+extern readyQueue rQueue;  //ready queue
 
 
 #endif /* systemConfigurations_h */

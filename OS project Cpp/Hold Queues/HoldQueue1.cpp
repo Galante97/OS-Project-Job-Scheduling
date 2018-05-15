@@ -7,6 +7,7 @@
 //
 
 #include "HoldQueue1.hpp"
+#include "systemConfigurations.h"
 #include "Node.hpp"
 #include <iostream>
 #include <stdlib.h>
@@ -43,7 +44,8 @@ void HoldQueue1::addFirst(Node *job) {
     first = job;
     first->next = NULL;
     last = first->next;
-   
+    
+    moveToRQueue(job);
 }
 
 void HoldQueue1::addAtEnd(Node *job) {
@@ -61,8 +63,17 @@ void HoldQueue1::addAtEnd(Node *job) {
         job->next = NULL;
         last = job->next;
         
+        moveToRQueue(job);
     }
 
+}
+
+
+void HoldQueue1::moveToRQueue(Node *job) {
+    //REMOVE BASED ON SORTING
+    if (job->m <= memory) {
+        printf("Can move to ready queue \n");
+    }
 }
 
 

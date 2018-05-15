@@ -10,6 +10,7 @@
 #include "submitQueue.hpp"
 #include "HoldQueue1.hpp"
 #include "HoldQueue2.hpp"
+#include "readyQueue.hpp"
 #include "systemConfigurations.h"
 #include <fstream>
 #include <sstream>
@@ -22,6 +23,7 @@ int serialDevices;
 int TimeSlice;
 HoldQueue1 HQ1;
 HoldQueue2 HQ2;
+readyQueue rQueue;
 
 
 void systemConfig_Test() {
@@ -33,7 +35,6 @@ void systemConfig_Test() {
 
 void pause(int dur) { //real life pause for testing only
     int temp = time(NULL) + dur;
-    
     while(temp > time(NULL));
 }
 
@@ -47,6 +48,8 @@ int main(int argc, const char * argv[]) {
     //create Queues
     HQ1 = *new HoldQueue1;
     HQ2 = *new HoldQueue2;
+    rQueue = *new readyQueue;
+    
     SubmitQueue SubmitQueue;
     
     //open file
@@ -56,11 +59,12 @@ int main(int argc, const char * argv[]) {
    //main loop
     while (std::getline(file, str)) { //iterate through each "Job"
         while(!SubmitQueue.checkCLKTime(str)) { //this is a "wait" while loop, if clk doesnt equal clock time
-            clk++;
-            if(file.eof()) { //end of file
+            clk++; //change later to include time slice
+            if(file.eof()) { //end of file stop
                 break;
             }
         }
+        
         SubmitQueue.inputCommand(str); //this only runs when the clock matches the correct time in the line
     }
     

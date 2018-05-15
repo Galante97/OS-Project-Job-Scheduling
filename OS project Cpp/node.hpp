@@ -17,6 +17,7 @@ class Node {
     friend class SubmitQueue;
     friend class HoldQueue1;
     friend class HoldQueue2;
+    friend class readyQueue;
     
     Node *next;
     //Node *prev;
