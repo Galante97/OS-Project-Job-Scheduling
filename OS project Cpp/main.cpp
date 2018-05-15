@@ -11,6 +11,9 @@
 #include "HoldQueue1.hpp"
 #include "HoldQueue2.hpp"
 #include "systemConfigurations.h"
+#include <fstream>
+#include <sstream>
+#include <stdlib.h>
 
 //global system configuation definitions
 int clk;
@@ -28,6 +31,17 @@ void systemConfig_Test() {
     printf("time quantum = %d\n", TimeSlice);
 }
 
+void wait() {
+    clk++;
+}
+
+void pause(int dur)
+{
+    int temp = time(NULL) + dur;
+    
+    while(temp > time(NULL));
+}
+
 int main(int argc, const char * argv[]) {
     //dummy declartion of system configuation
     clk = 0;
@@ -40,11 +54,28 @@ int main(int argc, const char * argv[]) {
     HQ2 = *new HoldQueue2;
     SubmitQueue SubmitQueue;
     
-    SubmitQueue.readFile();
+   // SubmitQueue.readFile();
+    
+    std::ifstream file("sampleInput.txt");
+    std::string str;
     
 
+   //main loop
+    while (std::getline(file, str)) {
+        while(!SubmitQueue.checkCLKTime(str)) {
+            clk++;
+         
+            if(file.eof()) {
+                break;
+            }
+        }
+        SubmitQueue.inputCommand(str);
+        
+    }
+    
+    cout << "CLK: " << clk << "\n";
     HQ1.printLL();
-    cout << HQ1.size;
+    cout << "HQ1 Count: " << HQ1.size;
     printf("\n");
     
     //unfilled for now

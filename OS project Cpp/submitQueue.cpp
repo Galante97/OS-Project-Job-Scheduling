@@ -25,10 +25,13 @@ void SubmitQueue::readFile() {
         //std::cout << str;
         //std::cout << "\n";
         inputCommand(str);
+      
+      printf("RUN");
 
     }
 }
 void SubmitQueue::inputCommand(string line)  {
+    
     switch(line.at(0)){
         case 'C' : //System Configuration
             systemConfiguration(line);
@@ -49,6 +52,32 @@ void SubmitQueue::inputCommand(string line)  {
     }
 }
 
+bool SubmitQueue::checkCLKTime(string line) {
+    int clkInLine;
+    //erase all the useless text and leave nothing but the values
+    line.erase(std::find(line.begin(), line.end(), 'C')); // Erase C
+    line.erase(std::find(line.begin(), line.end(), 'M')); // Erase M
+    line.erase(std::find(line.begin(), line.end(), 'S')); // Erase S
+    line.erase(std::find(line.begin(), line.end(), 'Q')); // Erase Q
+    line.erase(std::find(line.begin(), line.end(), 'A')); // Erase A
+    line.erase(std::find(line.begin(), line.end(), 'J')); // Erase J
+    line.erase(std::find(line.begin(), line.end(), 'R')); // Erase R
+    line.erase(std::find(line.begin(), line.end(), 'P')); // Erase P
+    line.erase(std::find(line.begin(), line.end(), 'D')); // Erase D
+    string::iterator x = remove(line.begin(), line.end(), '='); //Erase =
+    line.erase(x, line.end());
+    
+    //setting local vars
+    stringstream ss(line);
+    ss >> clkInLine;
+    
+    if (clkInLine == clk) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 void SubmitQueue::systemConfiguration(string line) {
     int clock;
     int mem;
@@ -62,7 +91,7 @@ void SubmitQueue::systemConfiguration(string line) {
     line.erase(std::find(line.begin(), line.end(), 'Q')); // Erase Q
     string::iterator x = remove(line.begin(), line.end(), '='); //Erase =
     line.erase(x, line.end());
-   
+    
     //setting local vars
     stringstream ss(line);
     ss >> clock >> mem >> ser_devices >> t_slice;
