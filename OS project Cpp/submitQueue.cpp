@@ -13,6 +13,10 @@
 #include <sstream>
 #include <stdlib.h>
 #include "systemConfigurations.h"
+
+
+
+
 using namespace std;
 
 void SubmitQueue::readFile() {
@@ -102,8 +106,8 @@ void SubmitQueue::systemConfiguration(string line) {
     serialDevices = ser_devices;
     TimeSlice = t_slice;
     
-    Node *sysConfig = new Node(clock, mem, ser_devices, t_slice);
-    HQ1.addAtEnd(sysConfig);
+    //Node *sysConfig = new Node(clock, mem, ser_devices, t_slice);
+    //HQ1.addAtEnd(sysConfig);
     
     //HQ1.addAtFront(*sysConfig);
     
@@ -136,7 +140,7 @@ void SubmitQueue::JobArrival(string line){
     ss >> clock >> job_num >> mem_reqir >> serial_reqir >> time_runLength >> priority;
     
     
-    Node *jobArrival = new Node(clock, job_num, mem_reqir, serial_reqir, time_runLength, priority);
+    Node *jobArrival = new Node(JOB_ARRIVAL, clock, job_num, mem_reqir, serial_reqir, time_runLength, priority);
     HQ1.addAtEnd(jobArrival);
     
     //test of node
@@ -164,7 +168,7 @@ void SubmitQueue::requestForDevices(string line){
     stringstream ss(line);
     ss >> clock >> job_num >> devices;
     
-    Node *requestForDevices = new Node(clock, job_num, devices);
+    Node *requestForDevices = new Node(REQUEST_FOR_DEVICES, clock, job_num, devices);
     HQ1.addAtEnd(requestForDevices);
     
     //test of node
@@ -189,7 +193,7 @@ void SubmitQueue::releaseForDevices(string line){
     ss >> clock >> job_num >> devices;
     job_num = job_num *-1; //since its releasing devices not adding
     
-    Node *releaseForDevices = new Node(clock, job_num, devices);
+    Node *releaseForDevices = new Node(RELEASE_FOR_DEVICES, clock, job_num, devices);
     HQ1.addAtEnd(releaseForDevices);
     
     //test of node
@@ -206,7 +210,7 @@ void SubmitQueue::display(string line){
     stringstream ss(line);
     ss >> clock;
     
-    Node *display = new Node(clock);
+    Node *display = new Node(DISPLAY, clock);
     HQ1.addAtEnd(display);
     
     //test of node

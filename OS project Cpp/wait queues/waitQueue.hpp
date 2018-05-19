@@ -10,5 +10,29 @@
 #define waitQueue_hpp
 
 #include <stdio.h>
+#include "node.hpp"
+
+class waitQueue {
+    Node *first;
+    Node *last;
+    
+    
+public:
+    int size;
+    waitQueue();
+    // ~waitQueue();
+    
+    
+    void addFirst(Node *job);
+    void addAtEnd(Node *job);
+
+    void findJobAndMoveToReady(int jobNumber);
+    
+    void printLL();
+    
+};
+
+
+
 
 #endif /* waitQueue_hpp */

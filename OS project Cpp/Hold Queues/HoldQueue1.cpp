@@ -36,8 +36,8 @@ void HoldQueue1::printLL() {
         tmp = tmp->next;
     }
      printf("\n");
-     cout << "HQ1 Count: " << HQ1.size;
-     cout << endl;
+     //cout << "HQ1 Count: " << HQ1.size;
+     //cout << endl;
 }
 
 void HoldQueue1::addFirst(Node *job) {

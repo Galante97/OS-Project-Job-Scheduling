@@ -10,6 +10,7 @@
 #include "Node.hpp"
 #include <iostream>
 #include <stdlib.h>
+#include "systemConfigurations.h"
 
 CPU::CPU() { //constructor
     first = NULL;
@@ -22,12 +23,12 @@ void CPU::printLL() {
     printf("CPU LL: ");
     Node *tmp = first;
     while (tmp != NULL) {
-        cout << tmp->clk_time << "->";
+        cout << "[clk: " << tmp->clk_time << ", " << "job: " << tmp->j << "]" << "->";
         tmp = tmp->next;
     }
     printf("\n");
-    cout << "ReadyQueue Count: " << size;
-    cout << endl;
+ //   cout << "CPU Count: " << size;
+ //   cout << endl;
 }
 
 void CPU::addFirst(Node *job) {
@@ -36,6 +37,7 @@ void CPU::addFirst(Node *job) {
     first = job;
     first->next = NULL;
     last = first->next;
+    processJob();
     
 }
 
@@ -54,4 +56,51 @@ void CPU::addAtEnd(Node *job) {
         job->next = NULL;
         last = job->next;
     }
+    
+   
 }
+
+void CPU::processJob() {
+    if (first->nType == JOB_ARRIVAL) {
+        memory = memory - first->m;
+        moveToWaitQueue();
+        
+    }
+    
+    else if (first->nType == REQUEST_FOR_DEVICES) {
+        wQueue.findJobAndMoveToReady(first->j);
+       
+    }
+    
+  /*  if (first->nType == RELEASE_FOR_DEVICES) {
+        
+        
+    }
+    
+    if (first->nType == DISPLAY) {
+        
+        
+    } */
+    
+    
+}
+
+
+void CPU::moveToWaitQueue() {
+    //REMOVE BASED ON SORTING
+        if(first != NULL) {
+            Node *tmp = first;
+            Node *tmp2 = tmp->next;
+            wQueue.addAtEnd(tmp);
+            first = tmp2;
+            --size;
+        }
+    
+        cpu.inUse = false;
+    
+}
+
+
+
+
+

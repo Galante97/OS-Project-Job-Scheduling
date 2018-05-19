@@ -19,11 +19,13 @@ class Node {
     friend class HoldQueue2;
     friend class readyQueue;
     friend class CPU;
+    friend class waitQueue;
     
     Node *next;
     //Node *prev;
     int count;
     
+    int nType;
     int clk_time;
     int m;
     int s;
@@ -33,13 +35,15 @@ class Node {
     int d;
     int p;
     
+    bool jobGotDevices = false; //only applies to jobs
+    
     
    
 public:
-    Node(int clk, int M, int S, int Q); //system Configuration
-    Node(int clk, int J, int M, int S, int R, int P); //Job arrival 
-    Node(int clk, int J, int D); //Request for device OR release for device
-    Node(int clk); //display
+    Node(int type, int clk, int M, int S, int Q); //system Configuration
+    Node(int type, int clk, int J, int M, int S, int R, int P); //Job arrival
+    Node(int type, int clk, int J, int D); //Request for device OR release for device
+    Node(int type, int clk); //display
     Node();
 
 };

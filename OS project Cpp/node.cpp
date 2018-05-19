@@ -11,10 +11,10 @@
 #include <string>
 using namespace std;
 
-Node::Node(int clk, int M, int S, int Q) { //System Configuration
+Node::Node(int type, int clk, int M, int S, int Q) { //System Configuration
     next = NULL;
     //prev = NULL;
-    
+    nType = type;
     clk_time = clk;
     m = M;
     s = S;
@@ -22,10 +22,10 @@ Node::Node(int clk, int M, int S, int Q) { //System Configuration
     
 }
 
-Node::Node(int clk, int J, int M, int S, int R, int P) { //Job arrival
+Node::Node(int type, int clk, int J, int M, int S, int R, int P) { //Job arrival
     next = NULL;
     //prev = NULL;
-    
+    nType = type;
     clk_time = clk;
     j = J;
     m = M;
@@ -34,19 +34,19 @@ Node::Node(int clk, int J, int M, int S, int R, int P) { //Job arrival
     p = P;
 }
 
-Node::Node(int clk, int J, int D) { //Request for device OR release for device
+Node::Node(int type, int clk, int J, int D) { //Request for device OR release for device
     next = NULL;
     //prev = NULL;
-    
+    nType = type;
     clk_time = clk;
     j = J;
     d = D;
 }
 
-Node::Node(int clk) { //display
+Node::Node(int type, int clk) { //display
     next = NULL;
     //prev = NULL;
-    
+    nType = type;
     clk_time = clk;
 
 }

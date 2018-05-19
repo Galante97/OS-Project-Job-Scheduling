@@ -14,19 +14,24 @@
 
 class CPU {
     friend class readyQueue;
+    friend class main;
+    
     Node *first;
     Node *last;
-    bool inUse = false;
     
-    
+  
 public:
     int size;
+    bool inUse = false;
+    
     CPU();
     // ~CPU();
     
     
     void addFirst(Node *job);
     void addAtEnd(Node *job);
+    void processJob();
+    void moveToWaitQueue();
     void printLL();
     
 };

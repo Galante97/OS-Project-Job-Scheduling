@@ -23,12 +23,12 @@ void readyQueue::printLL() {
     printf("READY QUEUE LL: ");
     Node *tmp = first;
     while (tmp != NULL) {
-        cout << tmp->clk_time << "->";
+        cout << "[clk: " << tmp->clk_time << ", " << "j: " << tmp->j << "]" << "->";
         tmp = tmp->next;
     }
     printf("\n");
-    cout << "ReadyQueue Count: " << size;
-    cout << endl;
+  //  cout << "ReadyQueue Count: " << size;
+  //  cout << endl;
 }
 
 void readyQueue::addFirst(Node *job) {
@@ -55,22 +55,24 @@ void readyQueue::addAtEnd(Node *job) {
         job->next = NULL;
         last = job->next;
     }
+    
+    moveToCPU();
 }
 
 
 void readyQueue::moveToCPU() {
-    //REMOVE BASED ON SORTING
+    cout << cpu.inUse << endl;
     if (cpu.inUse == false) {
         if(first != NULL) {
             Node *tmp = first;
             Node *tmp2 = tmp->next;
-            rQueue.addAtEnd(tmp);
+            cpu.addFirst(tmp);
             first = tmp2;
             --size;
         }
         cpu.inUse = true;
         
-    } else{
+    } else {
         //cout << "not enough memory \n";
     }
 }

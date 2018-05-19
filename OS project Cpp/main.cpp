@@ -11,6 +11,7 @@
 #include "HoldQueue1.hpp"
 #include "HoldQueue2.hpp"
 #include "readyQueue.hpp"
+#include "CPU.hpp"
 #include "systemConfigurations.h"
 #include <fstream>
 #include <sstream>
@@ -25,6 +26,7 @@ HoldQueue1 HQ1;
 HoldQueue2 HQ2;
 readyQueue rQueue;
 CPU cpu;
+waitQueue wQueue;
 
 
 void systemConfig_Test() {
@@ -51,6 +53,7 @@ int main(int argc, const char * argv[]) {
     HQ2 = *new HoldQueue2;
     rQueue = *new readyQueue;
     cpu = *new CPU;
+    wQueue = *new waitQueue;
     
     SubmitQueue SubmitQueue;
     
@@ -62,10 +65,11 @@ int main(int argc, const char * argv[]) {
     while (std::getline(file, str)) { //iterate through each "Job"
         while(!SubmitQueue.checkCLKTime(str)) { //this is a "wait" while loop, if clk doesnt equal clock time
             clk++; //change later to include time slice
+            
             if(file.eof()) { //end of file stop
                 break;
             }
-            //pause(1);
+           
             //cout << "CLK: " << clk << "\n";
            // HQ1.printLL();
            // rQueue.printLL();
@@ -75,13 +79,14 @@ int main(int argc, const char * argv[]) {
     }
     
     
+    //rQueue.moveToCPU();
     HQ1.printLL();
     rQueue.printLL();
+    cpu.printLL();
+    wQueue.printLL();
+    
 
-    
-   
-  
-    
+
     
     //unfilled for now
     //HQ2.printLL();
