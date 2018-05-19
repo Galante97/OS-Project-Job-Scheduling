@@ -16,11 +16,9 @@ class CPU {
     friend class readyQueue;
     friend class main;
     
+public:
     Node *first;
     Node *last;
-    
-  
-public:
     int size;
     bool inUse = false;
     

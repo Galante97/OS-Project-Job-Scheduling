@@ -63,14 +63,13 @@ void CPU::addAtEnd(Node *job) {
 void CPU::processJob() {
     if (first->nType == JOB_ARRIVAL) {
         memory = memory - first->m;
-        moveToWaitQueue();
-        
+
     }
     
-    else if (first->nType == REQUEST_FOR_DEVICES) {
+   /* else if (first->nType == REQUEST_FOR_DEVICES) {
         wQueue.findJobAndMoveToReady(first->j);
        
-    }
+    } */
     
   /*  if (first->nType == RELEASE_FOR_DEVICES) {
         
@@ -96,7 +95,9 @@ void CPU::moveToWaitQueue() {
             --size;
         }
     
-        cpu.inUse = false;
+    //cout << "moveToWaitQueue()" << endl;
+    //cout << "CPU: " <<  cpu.inUse << endl;
+    cpu.inUse = false;
     
 }
 

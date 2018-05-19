@@ -66,6 +66,19 @@ int main(int argc, const char * argv[]) {
         while(!SubmitQueue.checkCLKTime(str)) { //this is a "wait" while loop, if clk doesnt equal clock time
             clk++; //change later to include time slice
             
+            if(cpu.first != NULL) {
+                if (cpu.first->r > 0) //has devices and used all cpu time
+                    cpu.first->r--;
+                   // cout << cpu.first->r << endl;
+                
+                if (cpu.first->r == 0) {
+                    
+                    //cpu.moveToWaitQueue();
+                }
+            }
+            
+            
+            
             if(file.eof()) { //end of file stop
                 break;
             }

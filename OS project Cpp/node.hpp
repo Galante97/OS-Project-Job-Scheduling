@@ -20,6 +20,7 @@ class Node {
     friend class readyQueue;
     friend class CPU;
     friend class waitQueue;
+    friend class main;
     
     Node *next;
     //Node *prev;
@@ -31,7 +32,7 @@ class Node {
     int s;
     int q;
     int j;
-    int r;
+    
     int d;
     int p;
     
@@ -40,6 +41,7 @@ class Node {
     
    
 public:
+    int r;
     Node(int type, int clk, int M, int S, int Q); //system Configuration
     Node(int type, int clk, int J, int M, int S, int R, int P); //Job arrival
     Node(int type, int clk, int J, int D); //Request for device OR release for device

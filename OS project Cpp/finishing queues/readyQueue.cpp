@@ -61,7 +61,14 @@ void readyQueue::addAtEnd(Node *job) {
 
 
 void readyQueue::moveToCPU() {
-    cout << cpu.inUse << endl;
+//    cout << "moveToCPU()" << endl;
+  //  cout << "RE: " <<  cpu.inUse << endl;
+  //  rQueue.printLL();
+  //  cpu.printLL();
+  //  wQueue.printLL();
+  //  printf("\n");
+//
+    
     if (cpu.inUse == false) {
         if(first != NULL) {
             Node *tmp = first;
@@ -69,8 +76,9 @@ void readyQueue::moveToCPU() {
             cpu.addFirst(tmp);
             first = tmp2;
             --size;
+            cpu.inUse = true;
         }
-        cpu.inUse = true;
+        
         
     } else {
         //cout << "not enough memory \n";
