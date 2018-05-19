@@ -35,7 +35,9 @@ void HoldQueue1::printLL() {
         cout << tmp->clk_time << "->";
         tmp = tmp->next;
     }
-    cout << endl;
+     printf("\n");
+     cout << "HQ1 Count: " << HQ1.size;
+     cout << endl;
 }
 
 void HoldQueue1::addFirst(Node *job) {
@@ -43,9 +45,8 @@ void HoldQueue1::addFirst(Node *job) {
     size = 1;
     first = job;
     first->next = NULL;
-    last = first->next;
+    last = first->next;    
     
-    moveToRQueue(job);
 }
 
 void HoldQueue1::addAtEnd(Node *job) {
@@ -61,21 +62,64 @@ void HoldQueue1::addAtEnd(Node *job) {
         }
         temp->next = job;
         job->next = NULL;
-        last = job->next;
+        last = job; //fixed an error here
         
-        moveToRQueue(job);
     }
+    
+    HQ1.moveToRQueue(); //moves to ready queue if ready
 
+    
+}
+
+void HoldQueue1::addInOrder(Node *job) {
+    if(size == 0){
+        addFirst(job);
+    }
+    else{
+        size++;
+        Node *temp1 = first;
+        Node *temp2 = first;
+        if(temp2->r > job->r){
+            job->next = temp2;
+            first = job;
+        }
+        else if(last->r <= job->r){
+            temp1 = last;
+            temp1->next = job;
+            job->next = NULL;
+            last = job;
+        }
+        else{
+            while(temp2 != last && temp2 < job){
+                temp2 = temp2->next;
+                if(temp2->r > job->r){
+                    job->next = temp2;
+                    temp1->next = job;
+                }
+                else{
+                    temp1 = temp1->next;
+                }
+            }
+            
+        }
+    }
 }
 
 
-void HoldQueue1::moveToRQueue(Node *job) {
+void HoldQueue1::moveToRQueue() {
     //REMOVE BASED ON SORTING
-    if (job->m <= memory) {
-        printf("Can move to ready queue \n");
+    if (first->m <= memory) {
+        if(first != NULL) {
+            Node *tmp = first;
+            Node *tmp2 = tmp->next;
+            rQueue.addAtEnd(tmp);
+            first = tmp2;
+            --size;
+        }
+    } else{
+        cout << "not enough memory \n";
     }
 }
-
 
     
     

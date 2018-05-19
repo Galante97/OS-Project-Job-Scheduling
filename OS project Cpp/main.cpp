@@ -24,6 +24,7 @@ int TimeSlice;
 HoldQueue1 HQ1;
 HoldQueue2 HQ2;
 readyQueue rQueue;
+CPU cpu;
 
 
 void systemConfig_Test() {
@@ -49,6 +50,7 @@ int main(int argc, const char * argv[]) {
     HQ1 = *new HoldQueue1;
     HQ2 = *new HoldQueue2;
     rQueue = *new readyQueue;
+    cpu = *new CPU;
     
     SubmitQueue SubmitQueue;
     
@@ -63,15 +65,23 @@ int main(int argc, const char * argv[]) {
             if(file.eof()) { //end of file stop
                 break;
             }
+            //pause(1);
+            //cout << "CLK: " << clk << "\n";
+           // HQ1.printLL();
+           // rQueue.printLL();
         }
         
         SubmitQueue.inputCommand(str); //this only runs when the clock matches the correct time in the line
     }
     
-    cout << "CLK: " << clk << "\n";
+    
     HQ1.printLL();
-    cout << "HQ1 Count: " << HQ1.size;
-    printf("\n");
+    rQueue.printLL();
+
+    
+   
+  
+    
     
     //unfilled for now
     //HQ2.printLL();

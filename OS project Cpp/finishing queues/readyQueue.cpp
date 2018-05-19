@@ -10,6 +10,7 @@
 #include "Node.hpp"
 #include <iostream>
 #include <stdlib.h>
+#include "systemConfigurations.h"
 
 readyQueue::readyQueue() { //constructor
     first = NULL;
@@ -25,6 +26,8 @@ void readyQueue::printLL() {
         cout << tmp->clk_time << "->";
         tmp = tmp->next;
     }
+    printf("\n");
+    cout << "ReadyQueue Count: " << size;
     cout << endl;
 }
 
@@ -53,4 +56,32 @@ void readyQueue::addAtEnd(Node *job) {
         last = job->next;
     }
 }
+
+
+void readyQueue::moveToCPU() {
+    //REMOVE BASED ON SORTING
+    if (cpu.inUse == false) {
+        if(first != NULL) {
+            Node *tmp = first;
+            Node *tmp2 = tmp->next;
+            rQueue.addAtEnd(tmp);
+            first = tmp2;
+            --size;
+        }
+        cpu.inUse = true;
+        
+    } else{
+        //cout << "not enough memory \n";
+    }
+}
+
+
+
+
+
+
+
+
+
+
 

@@ -21,15 +21,16 @@ class HoldQueue1 {
 public:
     int size;
     HoldQueue1();
-   // ~HoldQueue1();
+    // ~HoldQueue1();
     
     
     void addFirst(Node *job);
     void addAtEnd(Node *job);
-    void moveToRQueue(Node *job);
-
+    void addInOrder(Node *job);
+    void moveToRQueue();
+    
     void printLL();
-
+    
 };
 
 #endif /* HoldQueue1_hpp */

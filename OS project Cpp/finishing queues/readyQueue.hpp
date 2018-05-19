@@ -25,6 +25,8 @@ public:
     
     void addFirst(Node *job);
     void addAtEnd(Node *job);
+    void moveToCPU();
+    
     void printLL();
     
 };

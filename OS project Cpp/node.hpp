@@ -18,6 +18,7 @@ class Node {
     friend class HoldQueue1;
     friend class HoldQueue2;
     friend class readyQueue;
+    friend class CPU;
     
     Node *next;
     //Node *prev;
