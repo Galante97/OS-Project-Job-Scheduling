@@ -25,20 +25,14 @@ class Node {
     Node *next;
     //Node *prev;
     int count;
-    
-
+   
+public:
     int clk_time;
     int m;
     int s;
     int q;
     int d;
     int p;
-    
-   
-    
-    
-   
-public:
     int r;
     int j;
     bool jobGotDevices = false; //only applies to jobs

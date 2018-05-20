@@ -71,8 +71,11 @@ void waitQueue::findJobAndMoveToReady(int jobNumber) {
     // If head node itself holds the key to be deleted
     if (temp != NULL && temp->j == jobNumber) {
         first = temp->next;   // Changed head
+        
+        while(rQueue.Adding){} //wait
+        
+        
         rQueue.addAtEnd(temp);
-        free(temp);               // free old head
         return;
     }
     

@@ -34,6 +34,7 @@ void systemConfig_Test() {
     printf("memory = %d\n", memory);
     printf("serial devices = %d\n", serialDevices);
     printf("time quantum = %d\n", TimeSlice);
+    cout << endl;
 }
 
 void pause(int dur) { //real life pause for testing only
@@ -63,6 +64,7 @@ int main(int argc, const char * argv[]) {
     
     //main loop
     while (std::getline(file, str)) { //iterate through each "Job"
+
         while(!SubmitQueue.checkCLKTime(str)) { //this is a "wait" while loop, if clk doesnt equal clock time
             clk++; //change later to include time slice
             
@@ -76,12 +78,11 @@ int main(int argc, const char * argv[]) {
                     cpu.first->r--;
                 } else { //go to wait queue, no devices
                     
-                    
-                    
                     if (cpu.first->nType == JOB_ARRIVAL) {
                         cpu.moveToWaitQueue();
-                    } else if (cpu.first->nType == REQUEST_FOR_DEVICES) {
-                        wQueue.findJobAndMoveToReady(cpu.first->j);
+                    } else if (cpu.first->nType == REQUEST_FOR_DEVICES) { //get devices
+                        serialDevices = serialDevices - cpu.first->d; //remove available devices
+                        wQueue.findJobAndMoveToReady(cpu.first->j); //job got its devices so move back to ready queue
                         
                     }
                     

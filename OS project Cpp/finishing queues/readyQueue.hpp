@@ -18,6 +18,9 @@ class readyQueue {
     
 public:
     int size;
+    bool Adding = false;
+    
+    
     readyQueue();
     // ~HoldQueue1();
     

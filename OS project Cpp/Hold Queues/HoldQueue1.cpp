@@ -65,7 +65,6 @@ void HoldQueue1::addAtEnd(Node *job) {
         last = job; //fixed an error here
         
     }
-    
     HQ1.moveToRQueue(); //moves to ready queue if ready
 
     

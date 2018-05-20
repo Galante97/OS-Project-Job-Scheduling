@@ -144,12 +144,12 @@ void SubmitQueue::JobArrival(string line){
     HQ1.addAtEnd(jobArrival);
     
     //test of node
-//    printf("clock = %d\n", jobArrival.clk_time);
-//    printf("memory required = %d\n", jobArrival.m);
-//    printf("serial devices required = %d\n", jobArrival.s);
-//    printf("Job number = %d\n", jobArrival.j);
-//    printf("units of time needed = %d\n", jobArrival.r);
-//    printf("priority = %d\n", jobArrival.p);
+    cout << endl;
+    printf("clock = %d\n", clk);
+    printf("memory required = %d\n",memory);
+    printf("serial devices required = %d\n", serialDevices);
+    printf("units of time needed = %d\n", TimeSlice);
+    cout << endl;
 
     
 }
