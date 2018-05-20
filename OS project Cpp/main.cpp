@@ -87,9 +87,7 @@ int main(int argc, const char * argv[]) {
                     }
                     
                 }
-                
-                   // cout << cpu.first->r << endl;
-                
+            
                // if (cpu.first->r == 0) { //job is done
                     //go to finished queue
                // }

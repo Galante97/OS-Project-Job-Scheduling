@@ -107,7 +107,22 @@ void HoldQueue1::addInOrder(Node *job) {
 
 void HoldQueue1::moveToRQueue() {
     //REMOVE BASED ON SORTING
-    if (first->m <= memory) {
+    cout << "first->m: " << first->m << endl;
+    cout << "memory: " << memory << endl;
+
+    if (first->nType == JOB_ARRIVAL) {
+        if (first->m <= memory) {
+            if(first != NULL) {
+                Node *tmp = first;
+                Node *tmp2 = tmp->next;
+                rQueue.addAtEnd(tmp);
+                first = tmp2;
+                --size;
+            }
+        } else {
+            cout << "not enough memory" << endl;
+        }
+    } else {
         if(first != NULL) {
             Node *tmp = first;
             Node *tmp2 = tmp->next;
@@ -115,9 +130,8 @@ void HoldQueue1::moveToRQueue() {
             first = tmp2;
             --size;
         }
-    } else{
-        cout << "not enough memory \n";
     }
+
 }
 
     
