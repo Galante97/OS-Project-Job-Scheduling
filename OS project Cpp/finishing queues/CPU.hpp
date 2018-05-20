@@ -30,6 +30,7 @@ public:
     void addAtEnd(Node *job);
     void processJob();
     void moveToWaitQueue();
+    void goToFinishedQueue();
     void printLL();
     
 };

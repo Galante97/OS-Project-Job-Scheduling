@@ -10,5 +10,24 @@
 #define CompleteQueue_hpp
 
 #include <stdio.h>
+#include "node.hpp"
+
+//SJF
+class CompleteQueue {
+    Node *first;
+    Node *last;
+    
+    
+public:
+    int size;
+    CompleteQueue();
+    // ~CompleteQueue();
+    
+    
+    void addFirst(Node *job);
+    void addAtEnd(Node *job);
+    void printLL();
+    
+};
 
 #endif /* CompleteQueue_hpp */

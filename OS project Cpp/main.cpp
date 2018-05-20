@@ -27,6 +27,7 @@ HoldQueue2 HQ2;
 readyQueue rQueue;
 CPU cpu;
 waitQueue wQueue;
+CompleteQueue cQueue;
 
 
 void systemConfig_Test() {
@@ -55,6 +56,7 @@ int main(int argc, const char * argv[]) {
     rQueue = *new readyQueue;
     cpu = *new CPU;
     wQueue = *new waitQueue;
+    cQueue = *new CompleteQueue;
     
     SubmitQueue SubmitQueue;
     
@@ -77,6 +79,9 @@ int main(int argc, const char * argv[]) {
                 if (cpu.first->r > 0 && cpu.first->jobGotDevices) { //has devices and needs to run
                     cpu.first->r--;
                 } else { //go to wait queue, no devices
+                     if (cpu.first->r == 0) { //job is done
+                         cpu.goToFinishedQueue(); 
+                     }
                     
                     if (cpu.first->nType == JOB_ARRIVAL) {
                         cpu.moveToWaitQueue();
@@ -88,9 +93,7 @@ int main(int argc, const char * argv[]) {
                     
                 }
             
-               // if (cpu.first->r == 0) { //job is done
-                    //go to finished queue
-               // }
+               
             }
             if(file.eof()) { //end of file stop
                 break;
@@ -109,6 +112,7 @@ int main(int argc, const char * argv[]) {
     rQueue.printLL();
     cpu.printLL();
     wQueue.printLL();
+    cQueue.printLL();
     
 
 

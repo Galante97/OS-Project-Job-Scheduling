@@ -14,6 +14,7 @@
 using namespace std;
 
 class Node {
+    friend class CompleteQueue;
     friend class SubmitQueue;
     friend class HoldQueue1;
     friend class HoldQueue2;
@@ -21,9 +22,9 @@ class Node {
     friend class CPU;
     friend class waitQueue;
     friend class main;
+  
     
     Node *next;
-    //Node *prev;
     int count;
    
 public:

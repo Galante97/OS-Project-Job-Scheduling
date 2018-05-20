@@ -101,6 +101,17 @@ void CPU::moveToWaitQueue() {
     
 }
 
+void CPU::goToFinishedQueue() {
+    if(first != NULL) {
+        Node *tmp = first;
+        Node *tmp2 = tmp->next;
+        cQueue.addAtEnd(tmp);
+        first = tmp2;
+        --size;
+    }
+    
+}
+
 
 
 

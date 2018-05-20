@@ -14,6 +14,7 @@
 #include "readyQueue.hpp"
 #include "waitQueue.hpp"
 #include "CPU.hpp"
+#include "CompleteQueue.hpp"
 
 extern int clk;
 extern int memory;
@@ -33,7 +34,7 @@ extern HoldQueue2 HQ2; //linked list 2 FIFO
 extern readyQueue rQueue;  //ready queue
 extern CPU cpu; //CPU
 extern waitQueue wQueue; //waitQueue
-
+extern CompleteQueue cQueue; //CompleteQueue
 
 #endif /* systemConfigurations_h */
 
