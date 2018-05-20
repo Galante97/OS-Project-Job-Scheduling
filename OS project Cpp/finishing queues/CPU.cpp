@@ -66,11 +66,11 @@ void CPU::processJob() {
 
     }
     
-   /* else if (first->nType == REQUEST_FOR_DEVICES) {
+ /*   else if (first->nType == REQUEST_FOR_DEVICES) {
         wQueue.findJobAndMoveToReady(first->j);
        
-    } */
-    
+    }
+    */
   /*  if (first->nType == RELEASE_FOR_DEVICES) {
         
         

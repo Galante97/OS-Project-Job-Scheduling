@@ -26,22 +26,24 @@ class Node {
     //Node *prev;
     int count;
     
-    int nType;
+
     int clk_time;
     int m;
     int s;
     int q;
-    int j;
-    
     int d;
     int p;
     
-    bool jobGotDevices = false; //only applies to jobs
+   
     
     
    
 public:
     int r;
+    int j;
+    bool jobGotDevices = false; //only applies to jobs
+    int nType;
+    
     Node(int type, int clk, int M, int S, int Q); //system Configuration
     Node(int type, int clk, int J, int M, int S, int R, int P); //Job arrival
     Node(int type, int clk, int J, int D); //Request for device OR release for device

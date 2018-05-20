@@ -61,18 +61,41 @@ void waitQueue::addAtEnd(Node *job) {
 
 
 
+
+
+
 void waitQueue::findJobAndMoveToReady(int jobNumber) {
-    Node *tmp = first;
-    while (tmp != NULL) {
-        if (tmp->j == jobNumber) {
-            rQueue.addAtEnd(tmp);
-            break;
-        }
-        tmp = tmp->next;
+    // Store head node
+    Node *temp = first;
+    Node *prev;
+    // If head node itself holds the key to be deleted
+    if (temp != NULL && temp->j == jobNumber) {
+        first = temp->next;   // Changed head
+        rQueue.addAtEnd(temp);
+        free(temp);               // free old head
+        return;
     }
-  
-    cout << endl;
+    
+    // Search for the key to be deleted, keep track of the
+    // previous node as we need to change 'prev->next'
+    while (temp != NULL && temp->j != jobNumber) {
+        prev = temp;
+        temp = temp->next;
+    }
+    
+    // If key was not present in linked list
+    if (temp == NULL) return;
+    
+    // Unlink the node from linked list
+    prev->next = temp->next;
+    
+    free(temp);  // Free memory
 }
+
+
+
+
+
 
 
 

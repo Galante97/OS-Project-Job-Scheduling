@@ -61,24 +61,38 @@ int main(int argc, const char * argv[]) {
     std::ifstream file("sampleInput.txt");
     std::string str;
     
-   //main loop
+    //main loop
     while (std::getline(file, str)) { //iterate through each "Job"
         while(!SubmitQueue.checkCLKTime(str)) { //this is a "wait" while loop, if clk doesnt equal clock time
             clk++; //change later to include time slice
             
+            HQ1.printLL();
+            rQueue.printLL();
+            cpu.printLL();
+            wQueue.printLL();
+            
             if(cpu.first != NULL) {
-                if (cpu.first->r > 0) //has devices and used all cpu time
+                if (cpu.first->r > 0 && cpu.first->jobGotDevices) { //has devices and needs to run
                     cpu.first->r--;
+                } else { //go to wait queue, no devices
+                    
+                    
+                    
+                    if (cpu.first->nType == JOB_ARRIVAL) {
+                        cpu.moveToWaitQueue();
+                    } else if (cpu.first->nType == REQUEST_FOR_DEVICES) {
+                        wQueue.findJobAndMoveToReady(cpu.first->j);
+                        
+                    }
+                    
+                }
+                
                    // cout << cpu.first->r << endl;
                 
-                if (cpu.first->r == 0) {
-                    
-                    //cpu.moveToWaitQueue();
-                }
+               // if (cpu.first->r == 0) { //job is done
+                    //go to finished queue
+               // }
             }
-            
-            
-            
             if(file.eof()) { //end of file stop
                 break;
             }
@@ -87,7 +101,6 @@ int main(int argc, const char * argv[]) {
            // HQ1.printLL();
            // rQueue.printLL();
         }
-        
         SubmitQueue.inputCommand(str); //this only runs when the clock matches the correct time in the line
     }
     

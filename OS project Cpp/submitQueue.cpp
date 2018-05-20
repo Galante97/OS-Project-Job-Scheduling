@@ -210,8 +210,8 @@ void SubmitQueue::display(string line){
     stringstream ss(line);
     ss >> clock;
     
-    Node *display = new Node(DISPLAY, clock);
-    HQ1.addAtEnd(display);
+    //Node *display = new Node(DISPLAY, clock);
+    //HQ1.addAtEnd(display);
     
     //test of node
     //printf("clock = %d\n", display.clk_time);
