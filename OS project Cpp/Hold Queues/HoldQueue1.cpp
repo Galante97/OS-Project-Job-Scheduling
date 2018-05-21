@@ -71,7 +71,7 @@ void HoldQueue1::addAtEnd(Node *job) {
 }
 
 void HoldQueue1::addInOrder(Node *job) {
-    if(size == 0){
+    if(size == 0) {
         addFirst(job);
     }
     else{
@@ -107,8 +107,8 @@ void HoldQueue1::addInOrder(Node *job) {
 
 void HoldQueue1::moveToRQueue() {
     //REMOVE BASED ON SORTING
-    cout << "first->m: " << first->m << endl;
-    cout << "memory: " << memory << endl;
+   // cout << "first->m: " << first->m << endl;
+   // cout << "memory: " << memory << endl;
 
     if (first->nType == JOB_ARRIVAL) {
         if (first->m <= memory) {

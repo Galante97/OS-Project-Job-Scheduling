@@ -69,21 +69,45 @@ int main(int argc, const char * argv[]) {
 
         while(!SubmitQueue.checkCLKTime(str)) { //this is a "wait" while loop, if clk doesnt equal clock time
             clk++; //change later to include time slice
-            
             HQ1.printLL();
             rQueue.printLL();
             cpu.printLL();
             wQueue.printLL();
+            cQueue.printLL();
+            cout << endl;
             
-            if(cpu.first != NULL) {
+            
+             if(cpu.first != NULL) { //anything in cpu
+                 if (cpu.first->nType == JOB_ARRIVAL) { //there is a job in the cpu
+                     if (cpu.first->r == 0) { //job is done
+                         cpu.goToFinishedQueue(); //move to finished queue
+                         cpu.inUse = false; //free up cpu
+                         rQueue.moveToCPU(); //move the next job  off the ready queue and to cpu
+                     } else if (cpu.first->r > 0 && cpu.first->jobGotDevices) { //job HAS DEVICES, now run
+                         cpu.first->r--; //running by subracting its r (time)
+                        
+                     } else { //job DOES NOT have devices
+                         cpu.moveToWaitQueue(); //move to device wait queue
+                     }
+                     
+                 } else if (cpu.first->nType == REQUEST_FOR_DEVICES) { //a request for devices is in the cpu
+                     serialDevices = serialDevices - cpu.first->d; //remove available devices
+                     wQueue.findJobAndMoveToReady(cpu.first->j); //job got devices, so move back to ready queue from device wQueue
+        
+                 } else if (cpu.first->nType == RELEASE_FOR_DEVICES) { //a release for devices is in the cpu
+                    //NOT DONE
+                 }
+             
+             }
+        
+            
+            /*    if(cpu.first != NULL) {
                 if (cpu.first->r > 0 && cpu.first->jobGotDevices) { //has devices and needs to run
                     cpu.first->r--;
                 } else { //go to wait queue, no devices
-                     if (cpu.first->r == 0) { //job is done
-                         cpu.goToFinishedQueue(); 
-                     }
-                    
-                    if (cpu.first->nType == JOB_ARRIVAL) {
+                     if (cpu.first->r == 0 ) { //job is done
+                         cpu.goToFinishedQueue();
+                     } else if (cpu.first->nType == JOB_ARRIVAL) {
                         cpu.moveToWaitQueue();
                     } else if (cpu.first->nType == REQUEST_FOR_DEVICES) { //get devices
                         serialDevices = serialDevices - cpu.first->d; //remove available devices
@@ -92,9 +116,8 @@ int main(int argc, const char * argv[]) {
                     }
                     
                 }
-            
-               
-            }
+    
+            } */
             if(file.eof()) { //end of file stop
                 break;
             }
@@ -108,6 +131,7 @@ int main(int argc, const char * argv[]) {
     
     
     //rQueue.moveToCPU();
+     cout << "clk: "<< clk << endl;
     HQ1.printLL();
     rQueue.printLL();
     cpu.printLL();

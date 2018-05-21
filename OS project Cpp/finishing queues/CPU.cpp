@@ -108,8 +108,7 @@ void CPU::goToFinishedQueue() {
         cQueue.addAtEnd(tmp);
         first = tmp2;
         --size;
-    }
-    
+    }   
 }
 
 

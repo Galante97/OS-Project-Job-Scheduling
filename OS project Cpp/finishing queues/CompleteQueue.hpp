@@ -14,11 +14,11 @@
 
 //SJF
 class CompleteQueue {
+  
+public:
     Node *first;
     Node *last;
     
-    
-public:
     int size;
     CompleteQueue();
     // ~CompleteQueue();

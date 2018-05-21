@@ -58,14 +58,13 @@ void readyQueue::addAtEnd(Node *job) {
         job->next = NULL;
         last = job->next;
     }
-    
     moveToCPU();
     Adding = false;
 }
 
 
 void readyQueue::moveToCPU() {
-//    cout << "moveToCPU()" << endl;
+    cout << "moveToCPU()" << endl;
   //  cout << "RE: " <<  cpu.inUse << endl;
   //  rQueue.printLL();
   //  cpu.printLL();

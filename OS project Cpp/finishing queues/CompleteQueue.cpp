@@ -29,13 +29,15 @@ CompleteQueue::CompleteQueue() { //constructor
  last = NULL;
  }*/
 void CompleteQueue::printLL() {
-    printf("CompleteQueue LL: ");
+    printf("CompletedQueue LL: ");
     Node *tmp = first;
     while (tmp != NULL) {
-        cout << tmp->clk_time << "->";
+        cout << "[clk: " << tmp->clk_time << ", " << "j: " << tmp->j << " type: " << tmp->nType << "]" << "->";
         tmp = tmp->next;
     }
-    cout << endl;
+    printf("\n");
+    //cout << "HQ1 Count: " << HQ1.size;
+    //cout << endl;
 }
 
 void CompleteQueue::addFirst(Node *job) {

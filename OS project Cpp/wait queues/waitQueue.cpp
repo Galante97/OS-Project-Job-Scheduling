@@ -60,10 +60,6 @@ void waitQueue::addAtEnd(Node *job) {
 }
 
 
-
-
-
-
 void waitQueue::findJobAndMoveToReady(int jobNumber) {
     // Store head node
     Node *temp = first;
@@ -73,8 +69,8 @@ void waitQueue::findJobAndMoveToReady(int jobNumber) {
         first = temp->next;   // Changed head
         
         while(rQueue.Adding){} //wait
-        
-        
+        temp->jobGotDevices = true;
+        cpu.inUse = false; //this frees up the cpu space so the request node will be overwrited
         rQueue.addAtEnd(temp);
         return;
     }
