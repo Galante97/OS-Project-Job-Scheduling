@@ -13,10 +13,10 @@
 #include <sstream>
 #include <stdlib.h>
 #include "systemConfigurations.h"
+#include "json.hpp"
 
-
-
-
+// for convenience
+using json = nlohmann::json;
 using namespace std;
 
 void SubmitQueue::readFile() {
@@ -210,12 +210,45 @@ void SubmitQueue::display(string line){
     stringstream ss(line);
     ss >> clock;
     
+   // printFiles();
+  
     //Node *display = new Node(DISPLAY, clock);
     //HQ1.addAtEnd(display);
     
     //test of node
     //printf("clock = %d\n", display.clk_time);
 }
+
+
+/*void SubmitQueue::printFiles() {
+    //int *array = rQueue.getContentsForJSON();
+    for (int i = 2 - 1; i >= 0; i--) {
+        cout << "ijenvjn";
+        cout << array[i];
+    }
+    json j2 = {
+        {"current_time", clk},
+        {"total_memory", memory},
+        {"available_memory", memory},
+        {"total_devices", serialDevices},
+         {"available_devices", serialDevices},
+         {"quantum", TimeSlice},
+         {"turnaround", " "},
+         {"weighted_turnaround", " "},
+        {"submitQ", {1, 0, 2}},
+        {"holdq2", {1, 0, 2}},
+        {"holdq1", {1, 0, 2}},
+        {"CompletedQ", {1, 0, 2}},
+        {"waitQ", {1, 0, 2}},
+        {"Jobs", {{44,4,4}, {1,23,4}}}
+        
+    };
+    
+    std::ofstream file("key.json");
+    file << j2;
+    
+}
+*/
 
 
 

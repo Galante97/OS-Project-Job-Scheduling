@@ -90,7 +90,16 @@ void readyQueue::moveToCPU() {
 
 
 
-
+/*int *readyQueue::getContentsForJSON() {
+    Node *tmp = first;
+//    while (tmp != NULL) {
+//        cout << "[clk: " << tmp->clk_time << ", " << "j: " << tmp->j << "]" << "->";
+//        tmp = tmp->next;
+//    }
+    
+    int r[3] = {7,8,9};
+    return *r;
+}*/
 
 
 
