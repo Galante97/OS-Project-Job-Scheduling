@@ -66,7 +66,7 @@ void readyQueue::addAtEnd(Node *job) {
 void readyQueue::moveToCPU() {
     if(cpu.inUse == false && first != NULL){
         memAvail -= first->m;
-        if(size > 1){
+        if(size >= 1){
             Node *tmp = first;
             Node *tmp2 = tmp->next;
             cpu.addFirst(tmp);

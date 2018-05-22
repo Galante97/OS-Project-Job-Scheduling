@@ -22,7 +22,8 @@ HoldQueue1::HoldQueue1() { //constructor
  }*/
 
 void HoldQueue1::printLL() {
-    // printf("HQ1 LL: ");
+    cout << endl;
+    cout << "HQ1 LL: ";
     Node *tmp = first;
     while (tmp != NULL) {
         cout << "[clk: " << tmp->clk_time << ", " << "j: " << tmp->j << "]" << "->";
@@ -38,7 +39,7 @@ void HoldQueue1::addFirst(Node *job) {
     size = 1;
     first = job;
     first->next = NULL;
-    last = first->next;
+    last = first;
     
 }
 

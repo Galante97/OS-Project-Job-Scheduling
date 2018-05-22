@@ -120,9 +120,7 @@ void SubmitQueue::JobArrival(string line){
     stringstream ss(line);
     ss >> clock >> job_num >> mem_reqir >> serial_reqir >> time_runLength >> priority;
     
-    cout << "BLAH:" << serialDevicesAvail << endl;
     if(mem_reqir <= memTotal && serial_reqir <= serialDevicesTotal){
-        cout << "Good" << endl;
         Node *jobArrival = new Node(JOB_ARRIVAL, clock, job_num, mem_reqir, serial_reqir, time_runLength, priority);
         if(mem_reqir <= memAvail) {
             rQueue.addAtEnd(jobArrival);
