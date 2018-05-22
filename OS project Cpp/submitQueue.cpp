@@ -83,7 +83,8 @@ void SubmitQueue::systemConfiguration(string line) {
     clk = clock;
     memTotal = mem;
     memAvail = mem;
-    serialDevices = ser_devices;
+    serialDevicesTotal = ser_devices;
+    serialDevicesAvail = ser_devices;
     TimeSlice = t_slice;
     
     //Node *sysConfig = new Node(clock, mem, ser_devices, t_slice);
@@ -119,14 +120,17 @@ void SubmitQueue::JobArrival(string line){
     stringstream ss(line);
     ss >> clock >> job_num >> mem_reqir >> serial_reqir >> time_runLength >> priority;
     
-    if(mem_reqir < memTotal && serial_reqir < serialDevices){
+    cout << "BLAH:" << serialDevicesAvail << endl;
+    if(mem_reqir <= memTotal && serial_reqir <= serialDevicesTotal){
+        cout << "Good" << endl;
         Node *jobArrival = new Node(JOB_ARRIVAL, clock, job_num, mem_reqir, serial_reqir, time_runLength, priority);
-        if(mem_reqir < memAvail)
+        if(mem_reqir <= memAvail) {
             rQueue.addAtEnd(jobArrival);
-        else if(priority == 1)
+        } else if(priority == 1)
             HQ1.addInOrder(jobArrival);
         else
             HQ2.addAtEnd(jobArrival);
+        
     }
     
     //test of node
@@ -158,8 +162,8 @@ void SubmitQueue::display(string line){
     //printf("clock = %d\n", display.clk_time);
 }
 
-
-/*void SubmitQueue::printFiles() {
+/*
+ void SubmitQueue::printFiles() {
  //int *array = rQueue.getContentsForJSON();
  for (int i = 2 - 1; i >= 0; i--) {
  cout << "ijenvjn";

@@ -39,6 +39,7 @@ void readyQueue::addFirst(Node *job) {
 }
 
 void readyQueue::addAtEnd(Node *job) {
+
     Adding = true;
     //add a new node to the end of the list
     if (size == 0) {
@@ -55,11 +56,15 @@ void readyQueue::addAtEnd(Node *job) {
         last = job->next;
     }
     Adding = false;
+    if(cpu.first == NULL) { //add ready queue job to cpu
+        moveToCPU();
+    }
+
+    
 }
 
 void readyQueue::moveToCPU() {
-    cout << "moveToCPU()" << endl;
-    if(cpu.inUse == false){
+    if(cpu.inUse == false && first != NULL){
         memAvail -= first->m;
         if(size > 1){
             Node *tmp = first;

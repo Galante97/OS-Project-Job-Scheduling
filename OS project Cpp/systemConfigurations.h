@@ -19,7 +19,8 @@
 extern int clk;
 extern int memTotal;
 extern int memAvail;
-extern int serialDevices;
+extern int serialDevicesTotal;
+extern int serialDevicesAvail;
 extern int TimeSlice;
 
 const  int SYSTEM_CONFIG = 0;

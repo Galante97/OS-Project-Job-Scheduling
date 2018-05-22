@@ -25,7 +25,7 @@ void HoldQueue1::printLL() {
     // printf("HQ1 LL: ");
     Node *tmp = first;
     while (tmp != NULL) {
-        cout << tmp->clk_time << "->";
+        cout << "[clk: " << tmp->clk_time << ", " << "j: " << tmp->j << "]" << "->";
         tmp = tmp->next;
     }
     cout << endl;

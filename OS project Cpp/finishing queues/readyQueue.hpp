@@ -13,10 +13,12 @@
 #include "node.hpp"
 
 class readyQueue {
+   
+    
+public:
     Node *first;
     Node *last;
     
-public:
     int size;
     bool Adding = false;
     

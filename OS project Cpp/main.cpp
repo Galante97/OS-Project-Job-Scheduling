@@ -21,7 +21,8 @@
 int clk;
 int memTotal;
 int memAvail;
-int serialDevices;
+int serialDevicesTotal;
+int serialDevicesAvail;
 int TimeSlice;
 HoldQueue1 HQ1;
 HoldQueue2 HQ2;
@@ -34,9 +35,20 @@ CompleteQueue cQueue;
 void systemConfig_Test() {
     cout << "clock = " << clk << endl;
     cout << "memory = " << memTotal << endl;
-    cout << "serial devices = " << serialDevices << endl;
+    cout << "serial devices = " << serialDevicesTotal << endl;
     cout << "time quantum =  " << TimeSlice << endl;
     cout << endl;
+}
+
+void printAllLists() {
+    cout << "clk: "<< clk << endl;
+    cout << "serialDevices: " << serialDevicesAvail;
+    HQ1.printLL();
+    HQ2.printLL();
+    rQueue.printLL();
+    cpu.printLL();
+    wQueue.printLL();
+    cQueue.printLL();
 }
 
 void pause(int dur) { //real life pause for testing only
@@ -49,7 +61,7 @@ int main(int argc, const char * argv[]) {
     clk = 0;
     memTotal = 0;
     memAvail = 0;
-    serialDevices = 0;
+    serialDevicesTotal = 0;
     TimeSlice = 0;
     
     //create Queues
@@ -71,56 +83,59 @@ int main(int argc, const char * argv[]) {
         
         do { //this is a "wait" while loop, if clk doesnt equal clock time
             clk++; //change later to include time slice -> need to incorporate time slice into all of this
-            HQ1.printLL();
-            rQueue.printLL();
-            cpu.printLL();
-            wQueue.printLL();
-            cQueue.printLL();
+            printAllLists();
             cout << endl;
             
+            if(cpu.first == NULL) {
+                cpu.inUse = false;
+                rQueue.moveToCPU();
+            }
             
             if(cpu.first != NULL) { //anything in cpu
                 if (cpu.first->r == 0) { //job is done
+                    cout << "Job Complete" << endl;
                     cpu.goToFinishedQueue(); //move to finished queue
-                    wQueue.moveToRQueue();
+                    
                     HQ1.moveToRQueue();
                     HQ2.moveToRQueue();
-                    rQueue.moveToCPU(); //move the next job  off the ready queue and to cpu
+                    rQueue.moveToCPU();
+                    wQueue.moveToRQueue();
                 } else if (cpu.first->r > 0 && cpu.first->jobGotDevices) { //job HAS DEVICES, now run
                     cpu.first->r--; //running by subracting its r (time)
+                    cout << "Running on CPU" << endl;
                     
                 } else { //job DOES NOT have devices
-                    if(cpu.requestDevices())
+                    if(cpu.requestDevices()) {
+                        cout << "Got availible devices move back to rQueue" << endl;
                         cpu.moveToRQueue();
-                    else
+                    }
+                    else {
+                        cout << "No availible Devices move to wQueue" << endl;
                         cpu.moveToWaitQueue(); //move to device wait queue if there aren't enough devices available
+                    }
                 }
                 
                 if(file.eof()) //end of file stop
                     break;
             }
+            
         } while(!SubmitQueue.checkCLKTime(str));
-        SubmitQueue.inputCommand(str); //this only runs when the clock matches the correct time in the line
+        SubmitQueue.inputCommand(str); //this only runs when the clock matches the correct time in the liner
         
-        cout << "clk: "<< clk << endl;
-        HQ1.printLL();
-        rQueue.printLL();
-        cpu.printLL();
-        wQueue.printLL();
-        cQueue.printLL();
-        
-        
-        
-        
-        //unfilled for now
-        //HQ2.printLL();
-        //cout << "HQ2 count: " << HQ2.size;
-        //printf("\n");
-        
-        //test
-        //systemConfig_Test();
-        
-        
-        return 0;
     }
+    
+    printAllLists();
+    
+    
+    
+    //unfilled for now
+    //HQ2.printLL();
+    //cout << "HQ2 count: " << HQ2.size;
+    //printf("\n");
+    
+    //test
+    //systemConfig_Test();
+    
+    
+    return 0;
 }

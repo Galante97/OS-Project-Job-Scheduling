@@ -31,12 +31,17 @@ void CPU::printLL() {
 }
 
 bool CPU::requestDevices(){
-    if(first->s <= serialDevices){
-        serialDevices -= first->s;
+    cout << "requestDevices()" << endl;
+    cpu.printLL();
+    if(first->s <= serialDevicesAvail){
+        serialDevicesAvail -= first->s;
+        first->jobGotDevices = true;
         return true;
     }
-    else
-        return false;
+    else {
+          return false;
+    }
+    
 }
 
 void CPU::addFirst(Node *job) {
@@ -74,7 +79,7 @@ void CPU::goToFinishedQueue() {
     if(first != NULL) {
         cQueue.addAtEnd(first);
         memAvail += first->m;
-        serialDevices += first->s;
+        serialDevicesAvail += first->s;
         first = NULL;
         --size;
     }
