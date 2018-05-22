@@ -18,17 +18,15 @@ readyQueue::readyQueue() { //constructor
     size = 0;
 }
 
-
 void readyQueue::printLL() {
-    printf("READY QUEUE LL: ");
+    cout << "READY QUEUE LL: ";
     Node *tmp = first;
     while (tmp != NULL) {
         cout << "[clk: " << tmp->clk_time << ", " << "j: " << tmp->j << "]" << "->";
         tmp = tmp->next;
     }
-    printf("\n");
-  //  cout << "ReadyQueue Count: " << size;
-  //  cout << endl;
+    //  cout << "ReadyQueue Count: " << size;
+     cout << endl;
 }
 
 void readyQueue::addFirst(Node *job) {
@@ -49,57 +47,46 @@ void readyQueue::addAtEnd(Node *job) {
         size++;
         
         Node *temp = first;
-
-        while (temp->next != NULL) {
-            temp = temp->next;
-        }
         
+        while (temp->next != NULL)
+            temp = temp->next;
         temp->next = job;
         job->next = NULL;
         last = job->next;
     }
-    moveToCPU();
     Adding = false;
 }
 
-
 void readyQueue::moveToCPU() {
     cout << "moveToCPU()" << endl;
-  //  cout << "RE: " <<  cpu.inUse << endl;
-  //  rQueue.printLL();
-  //  cpu.printLL();
-  //  wQueue.printLL();
-  //  printf("\n");
-//
-    
-    if (cpu.inUse == false) {
-        if(first != NULL) {
+    if(cpu.inUse == false){
+        memAvail -= first->m;
+        if(size > 1){
             Node *tmp = first;
             Node *tmp2 = tmp->next;
             cpu.addFirst(tmp);
             first = tmp2;
             --size;
-            cpu.inUse = true;
         }
-        
-        
-    } else {
-        //cout << "not enough memory \n";
+        else if(first != NULL){
+            rQueue.addAtEnd(first);
+            first = NULL;
+            --size;
+        }
     }
 }
 
 
-
 /*int *readyQueue::getContentsForJSON() {
-    Node *tmp = first;
-//    while (tmp != NULL) {
-//        cout << "[clk: " << tmp->clk_time << ", " << "j: " << tmp->j << "]" << "->";
-//        tmp = tmp->next;
-//    }
-    
-    int r[3] = {7,8,9};
-    return *r;
-}*/
+ Node *tmp = first;
+ //    while (tmp != NULL) {
+ //        cout << "[clk: " << tmp->clk_time << ", " << "j: " << tmp->j << "]" << "->";
+ //        tmp = tmp->next;
+ //    }
+ 
+ int r[3] = {7,8,9};
+ return *r;
+ }*/
 
 
 

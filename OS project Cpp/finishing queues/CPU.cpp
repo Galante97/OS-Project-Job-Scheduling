@@ -18,17 +18,25 @@ CPU::CPU() { //constructor
     size = 0;
 }
 
-
 void CPU::printLL() {
-    printf("CPU LL: ");
+    cout << "CPU LL: ";
     Node *tmp = first;
     while (tmp != NULL) {
         cout << "[clk: " << tmp->clk_time << ", " << "job: " << tmp->j << "]" << "->";
         tmp = tmp->next;
     }
-    printf("\n");
- //   cout << "CPU Count: " << size;
- //   cout << endl;
+    
+    //   cout << "CPU Count: " << size;
+   cout << endl;
+}
+
+bool CPU::requestDevices(){
+    if(first->s <= serialDevices){
+        serialDevices -= first->s;
+        return true;
+    }
+    else
+        return false;
 }
 
 void CPU::addFirst(Node *job) {
@@ -37,78 +45,40 @@ void CPU::addFirst(Node *job) {
     first = job;
     first->next = NULL;
     last = first->next;
-    processJob();
-    
 }
-
-void CPU::addAtEnd(Node *job) {
-    //add a new node to the end of the list
-    if (size == 0) {
-        addFirst(job);
-    } else {
-        size++;
-        
-        Node *temp = first;
-        while (temp->next != NULL) {
-            temp = temp->next;
-        }
-        temp->next = job;
-        job->next = NULL;
-        last = job->next;
-    }
-    
-   
-}
-
-void CPU::processJob() {
-    if (first->nType == JOB_ARRIVAL) {
-        memory = memory - first->m;
-
-    }
-    
- /*   else if (first->nType == REQUEST_FOR_DEVICES) {
-        wQueue.findJobAndMoveToReady(first->j);
-       
-    }
-    */
-  /*  if (first->nType == RELEASE_FOR_DEVICES) {
-        
-        
-    }
-    
-    if (first->nType == DISPLAY) {
-        
-        
-    } */
-    
-    
-}
-
 
 void CPU::moveToWaitQueue() {
-    //REMOVE BASED ON SORTING
-        if(first != NULL) {
-            Node *tmp = first;
-            Node *tmp2 = tmp->next;
-            wQueue.addAtEnd(tmp);
-            first = tmp2;
-            --size;
-        }
+    if(first != NULL) {
+        wQueue.addAtEnd(first);
+        first = NULL;
+        --size;
+    }
+    //cout << "moveToWaitQueue()" << endl;
+    //cout << "CPU: " <<  cpu.inUse << endl;
+    cpu.inUse = false;
+}
+
+void CPU::moveToRQueue() { //if the job requests & is granted devices
+    if(first != NULL) {
+        rQueue.addAtEnd(first);
+        first = NULL;
+        --size;
+    }
     
     //cout << "moveToWaitQueue()" << endl;
     //cout << "CPU: " <<  cpu.inUse << endl;
     cpu.inUse = false;
-    
 }
 
 void CPU::goToFinishedQueue() {
     if(first != NULL) {
-        Node *tmp = first;
-        Node *tmp2 = tmp->next;
-        cQueue.addAtEnd(tmp);
-        first = tmp2;
+        cQueue.addAtEnd(first);
+        memAvail += first->m;
+        serialDevices += first->s;
+        first = NULL;
         --size;
-    }   
+    }
+    cpu.inUse = false;
 }
 
 

@@ -23,16 +23,12 @@ class SubmitQueue {
     
 public:
     
-    void readFile();
     void inputCommand(string line);
     bool checkCLKTime(string line);
-    
     void systemConfiguration(string line);
     void JobArrival(string line);
-    void requestForDevices(string line);
-    void releaseForDevices(string line);
     void display(string line);
-
+    
     //void printFiles();
     
 };

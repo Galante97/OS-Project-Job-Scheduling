@@ -17,6 +17,7 @@ HoldQueue2::HoldQueue2() { //constructor
     last = NULL;
     size = 0;
 }
+
 /*HoldQueue2::~HoldQueue2() { //destructor
  Node *tmp = first;
  while (first != NULL) {
@@ -28,8 +29,9 @@ HoldQueue2::HoldQueue2() { //constructor
  first = NULL;
  last = NULL;
  }*/
+
 void HoldQueue2::printLL() {
-    printf("HQ2 LL: ");
+    cout << "HQ2 LL: ";
     Node *tmp = first;
     while (tmp != NULL) {
         cout << tmp->clk_time << "->";
@@ -44,8 +46,6 @@ void HoldQueue2::addFirst(Node *job) {
     first = job;
     first->next = NULL;
     last = first->next;
-    
-    moveToRQueue(job);
 }
 
 void HoldQueue2::addAtEnd(Node *job) {
@@ -54,7 +54,6 @@ void HoldQueue2::addAtEnd(Node *job) {
         addFirst(job);
     } else {
         size++;
-        
         Node *temp = first;
         while (temp->next != NULL) {
             temp = temp->next;
@@ -62,17 +61,22 @@ void HoldQueue2::addAtEnd(Node *job) {
         temp->next = job;
         job->next = NULL;
         last = job->next;
-        
-        moveToRQueue(job);
     }
-    
 }
 
 
-void HoldQueue2::moveToRQueue(Node *job) {
-    if (job->m <= memory) {
-        //REMOVE BASED ON SORTING
-        printf("Can move to ready queue \n");
-    }    
+void HoldQueue2::moveToRQueue() {
+    if(size > 1){
+        Node *tmp = first;
+        Node *tmp2 = tmp->next;
+        rQueue.addAtEnd(tmp);
+        first = tmp2;
+        --size;
+    }
+    else if(first != NULL){
+        rQueue.addAtEnd(first);
+        first = NULL;
+        --size;
+    }
 }
 

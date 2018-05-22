@@ -18,17 +18,16 @@ waitQueue::waitQueue() { //constructor
     size = 0;
 }
 
-
 void waitQueue::printLL() {
-    printf("WAIT QUEUE LL: ");
+    cout << "WAIT QUEUE LL: ";
     Node *tmp = first;
     while (tmp != NULL) {
         cout << "[clk: " << tmp->clk_time << ", " << "j: " << tmp->j << "]" << "->";
         tmp = tmp->next;
     }
-    printf("\n");
+
     //cout << "waitQueue Count: " << size;
-    //cout << endl;
+    cout << endl;
 }
 
 void waitQueue::addFirst(Node *job) {
@@ -55,41 +54,24 @@ void waitQueue::addAtEnd(Node *job) {
         job->next = NULL;
         last = job->next;
     }
-    
-    
 }
 
 
-void waitQueue::findJobAndMoveToReady(int jobNumber) {
-    // Store head node
-    Node *temp = first;
-    Node *prev;
-    // If head node itself holds the key to be deleted
-    if (temp != NULL && temp->j == jobNumber) {
-        first = temp->next;   // Changed head
-        
-        while(rQueue.Adding){} //wait
-        temp->jobGotDevices = true;
-        cpu.inUse = false; //this frees up the cpu space so the request node will be overwrited
-        rQueue.addAtEnd(temp);
-        return;
+void waitQueue::moveToRQueue() {
+    if(size > 1){
+        Node *tmp = first;
+        Node *tmp2 = tmp->next;
+        rQueue.addAtEnd(tmp);
+        first = tmp2;
+        --size;
     }
-    
-    // Search for the key to be deleted, keep track of the
-    // previous node as we need to change 'prev->next'
-    while (temp != NULL && temp->j != jobNumber) {
-        prev = temp;
-        temp = temp->next;
+    else if(first != NULL){
+        rQueue.addAtEnd(first);
+        first = NULL;
+        --size;
     }
-    
-    // If key was not present in linked list
-    if (temp == NULL) return;
-    
-    // Unlink the node from linked list
-    prev->next = temp->next;
-    
-    free(temp);  // Free memory
 }
+
 
 
 

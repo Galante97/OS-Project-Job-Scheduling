@@ -17,6 +17,7 @@ CompleteQueue::CompleteQueue() { //constructor
     last = NULL;
     size = 0;
 }
+
 /*CompleteQueue::~CompleteQueue() { //destructor
  Node *tmp = first;
  while (first != NULL) {
@@ -28,16 +29,17 @@ CompleteQueue::CompleteQueue() { //constructor
  first = NULL;
  last = NULL;
  }*/
+
 void CompleteQueue::printLL() {
-    printf("CompletedQueue LL: ");
+    cout << "CompletedQueue LL: ";
     Node *tmp = first;
     while (tmp != NULL) {
         cout << "[clk: " << tmp->clk_time << ", " << "j: " << tmp->j << " type: " << tmp->nType << "]" << "->";
         tmp = tmp->next;
     }
-    printf("\n");
+    
     //cout << "HQ1 Count: " << HQ1.size;
-    //cout << endl;
+    cout << endl;
 }
 
 void CompleteQueue::addFirst(Node *job) {
@@ -55,7 +57,6 @@ void CompleteQueue::addAtEnd(Node *job) {
         addFirst(job);
     } else {
         size++;
-        
         Node *temp = first;
         while (temp->next != NULL) {
             temp = temp->next;
@@ -63,9 +64,7 @@ void CompleteQueue::addAtEnd(Node *job) {
         temp->next = job;
         job->next = NULL;
         last = job->next;
-        
     }
-    
 }
 
 

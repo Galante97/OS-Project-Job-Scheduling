@@ -25,13 +25,12 @@ public:
     
     void addFirst(Node *job);
     void addAtEnd(Node *job);
-
-    void findJobAndMoveToReady(int jobNumber);
+    
+    void moveToRQueue();
     
     void printLL();
     
 };
-
 
 
 

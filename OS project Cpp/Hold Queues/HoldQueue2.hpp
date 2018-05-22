@@ -12,7 +12,6 @@
 #include <stdio.h>
 #include "node.hpp"
 
-//SJF
 class HoldQueue2 {
     Node *first;
     Node *last;
@@ -22,15 +21,11 @@ public:
     int size;
     HoldQueue2();
     // ~HoldQueue2();
-    
-    
     void addFirst(Node *job);
     void addAtEnd(Node *job);
-    
-    void moveToRQueue(Node *job);
-    
+    void moveToRQueue();
     void printLL();
-    
 };
+
 
 #endif /* HoldQueue2_hpp */

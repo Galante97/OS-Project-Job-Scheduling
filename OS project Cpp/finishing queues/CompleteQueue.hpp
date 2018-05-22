@@ -12,9 +12,8 @@
 #include <stdio.h>
 #include "node.hpp"
 
-//SJF
 class CompleteQueue {
-  
+    
 public:
     Node *first;
     Node *last;

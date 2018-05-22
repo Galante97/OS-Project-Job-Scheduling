@@ -17,11 +17,12 @@
 #include "CompleteQueue.hpp"
 
 extern int clk;
-extern int memory;
+extern int memTotal;
+extern int memAvail;
 extern int serialDevices;
 extern int TimeSlice;
 
-const int SYSTEM_CONFIG = 0;
+const  int SYSTEM_CONFIG = 0;
 const  int JOB_ARRIVAL = 1;
 const  int REQUEST_FOR_DEVICES = 2;
 const  int RELEASE_FOR_DEVICES = 3;

@@ -25,11 +25,10 @@ public:
     CPU();
     // ~CPU();
     
-    
+    bool requestDevices();
     void addFirst(Node *job);
-    void addAtEnd(Node *job);
-    void processJob();
     void moveToWaitQueue();
+    void moveToRQueue();
     void goToFinishedQueue();
     void printLL();
     

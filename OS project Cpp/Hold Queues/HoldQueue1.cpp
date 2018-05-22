@@ -1,11 +1,3 @@
-//
-//  HoldQueue1.cpp
-//  OS project Cpp
-//
-//  Created by James Galante on 5/13/18.
-//  Copyright © 2018 James Galante. All rights reserved.
-//
-
 #include "HoldQueue1.hpp"
 #include "systemConfigurations.h"
 #include "Node.hpp"
@@ -18,26 +10,27 @@ HoldQueue1::HoldQueue1() { //constructor
     size = 0;
 }
 /*HoldQueue1::~HoldQueue1() { //destructor
-    Node *tmp = first;
-    while (first != NULL) {
-        tmp = first->next;
-        delete first;
-        first = tmp;
-        size--;
-    }
-    first = NULL;
-    last = NULL;
-}*/
+ Node *tmp = first;
+ while (first != NULL) {
+ tmp = first->next;
+ delete first;
+ first = tmp;
+ size--;
+ }
+ first = NULL;
+ last = NULL;
+ }*/
+
 void HoldQueue1::printLL() {
-    printf("HQ1 LL: ");
+    // printf("HQ1 LL: ");
     Node *tmp = first;
     while (tmp != NULL) {
         cout << tmp->clk_time << "->";
         tmp = tmp->next;
     }
-     printf("\n");
-     //cout << "HQ1 Count: " << HQ1.size;
-     //cout << endl;
+    cout << endl;
+    //cout << "HQ1 Count: " << HQ1.size;
+    //cout << endl;
 }
 
 void HoldQueue1::addFirst(Node *job) {
@@ -45,28 +38,7 @@ void HoldQueue1::addFirst(Node *job) {
     size = 1;
     first = job;
     first->next = NULL;
-    last = first->next;    
-    
-}
-
-void HoldQueue1::addAtEnd(Node *job) {
-    //add a new node to the end of the list
-    if (size == 0) {
-        addFirst(job);
-    } else {
-        size++;
-        
-        Node *temp = first;
-        while (temp->next != NULL) {
-            temp = temp->next;
-        }
-        temp->next = job;
-        job->next = NULL;
-        last = job; //fixed an error here
-        
-    }
-    HQ1.moveToRQueue(); //moves to ready queue if ready
-
+    last = first->next;
     
 }
 
@@ -106,34 +78,16 @@ void HoldQueue1::addInOrder(Node *job) {
 
 
 void HoldQueue1::moveToRQueue() {
-    //REMOVE BASED ON SORTING
-   // cout << "first->m: " << first->m << endl;
-   // cout << "memory: " << memory << endl;
-
-    if (first->nType == JOB_ARRIVAL) {
-        if (first->m <= memory) {
-            if(first != NULL) {
-                Node *tmp = first;
-                Node *tmp2 = tmp->next;
-                rQueue.addAtEnd(tmp);
-                first = tmp2;
-                --size;
-            }
-        } else {
-            cout << "not enough memory" << endl;
-        }
-    } else {
-        if(first != NULL) {
-            Node *tmp = first;
-            Node *tmp2 = tmp->next;
-            rQueue.addAtEnd(tmp);
-            first = tmp2;
-            --size;
-        }
+    if(size > 1){
+        Node *tmp = first;
+        Node *tmp2 = tmp->next;
+        rQueue.addAtEnd(tmp);
+        first = tmp2;
+        --size;
     }
-
+    else if(first != NULL){
+        rQueue.addAtEnd(first);
+        first = NULL;
+        --size;
+    }
 }
-
-    
-    
-
