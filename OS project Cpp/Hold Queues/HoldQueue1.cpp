@@ -57,15 +57,10 @@ void HoldQueue1::addInOrder(Node *job) {
         size++;
         Node *temp1 = first;
         Node *temp2 = first;
-        cout<< "temp1: " << temp1->j << endl;
-        cout<< "temp2: " << temp2->j << endl;
-        
         
         if(temp2->r > job->r){
             job->next = temp2;
             first = job;
-            cout<< "-temp1: " << temp1->j << endl;
-            cout<< "-temp2: " << temp2->j << endl;
         }
         else if(last->r < job->r){
             temp1 = last;
@@ -74,8 +69,6 @@ void HoldQueue1::addInOrder(Node *job) {
             last = job;
         }
         else{
-          
-            
             while(temp2 != last && temp2->r < job->r){
                 temp2 = temp2->next;
                 if(temp2->r > job->r){
@@ -89,8 +82,6 @@ void HoldQueue1::addInOrder(Node *job) {
             
             if(temp1->r == job->r){ //TESTING SORTING BY MEMEORY IF LENGTH IS EQUAL
                 if(job->m <= last->m) {
-                    cout<< "-tt: " << job->j << endl;
-                    
                     first = job;
                     job->next = temp1;
                     temp1 = last;
