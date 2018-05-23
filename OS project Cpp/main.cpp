@@ -78,22 +78,32 @@ int main(int argc, const char * argv[]) {
     SubmitQueue SubmitQueue;
 
     //tests
-//    Node *jobArrival = new Node(JOB_ARRIVAL, 5, 3, 100, 8, 4, 1);
-//    Node *jobArrival2 = new Node(JOB_ARRIVAL, 8, 5, 10, 8, 4, 1);
-//    Node *jobArrival3 = new Node(JOB_ARRIVAL, 8, 6, 50, 8, 4, 1);
-//
-//
-//    HQ1.addInOrder(jobArrival);
-//    HQ1.addInOrder(jobArrival2);
-//    HQ1.addInOrder(jobArrival3);
-//
-//    HQ1.printLL();
+    Node *jobArrival = new Node(JOB_ARRIVAL, 5, 1, 100, 8, 4, 1);
+    Node *jobArrival2 = new Node(JOB_ARRIVAL, 8, 2, 10, 8, 4, 1);
+    Node *jobArrival3 = new Node(JOB_ARRIVAL, 8, 3, 50, 8, 4, 1);
+    Node *jobArrival4 = new Node(JOB_ARRIVAL, 8, 4, 40, 8, 4, 1);
+    Node *jobArrival5 = new Node(JOB_ARRIVAL, 8, 5, 30, 8, 4, 1);
+
+    //in this order
+    //job 2
+    //job 5
+    //job 4
+    //job 3
+    //job 1
+    
+    HQ1.addInOrder(jobArrival);
+    HQ1.addInOrder(jobArrival2);
+    HQ1.addInOrder(jobArrival3);
+    HQ1.addInOrder(jobArrival4);
+    HQ1.addInOrder(jobArrival5);
+
+    HQ1.printLL();
     
     //open file
     std::ifstream file("sampleInput.txt");
     std::string str;
 
-    //main loop
+  /*  //main loop
  while (std::getline(file, str)) { //iterate through each "Job"
         do { //this is a "wait" while loop, if clk doesnt equal clock time
             clk++; //change later to include time slice -> need to incorporate time slice into all of this
@@ -147,7 +157,7 @@ int main(int argc, const char * argv[]) {
     }
     
     printAllLists();
-    
+    */
     
     
     //unfilled for now
