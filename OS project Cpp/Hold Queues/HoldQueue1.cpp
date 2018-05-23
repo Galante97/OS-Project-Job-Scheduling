@@ -26,7 +26,7 @@ void HoldQueue1::printLL() {
     cout << "HQ1 LL: ";
     Node *tmp = first;
     while (tmp != NULL) {
-        cout << "[clk: " << tmp->clk_time << ", " << "j: " << tmp->j << "]" << "->";
+        cout << "[Run time: " << tmp->r << ", " << "j: " << tmp->j << "]" << "->";
         tmp = tmp->next;
     }
     cout << endl;
@@ -43,6 +43,12 @@ void HoldQueue1::addFirst(Node *job) {
     
 }
 
+
+/* function to insert a new_node in a list. Note that this
+ function expects a pointer to head_ref as this can modify the
+ head of the input linked list (similar to push())*/
+
+
 void HoldQueue1::addInOrder(Node *job) {
     if(size == 0) {
         addFirst(job);
@@ -51,18 +57,32 @@ void HoldQueue1::addInOrder(Node *job) {
         size++;
         Node *temp1 = first;
         Node *temp2 = first;
+        cout<< "temp1: " << temp1->j << endl;
+        cout<< "temp2: " << temp2->j << endl;
+        
+        
         if(temp2->r > job->r){
             job->next = temp2;
             first = job;
+            cout<< "-temp1: " << temp1->j << endl;
+            cout<< "-temp2: " << temp2->j << endl;
         }
-        else if(last->r <= job->r){
+        else if(last->r < job->r){
             temp1 = last;
             temp1->next = job;
             job->next = NULL;
             last = job;
-        }
+        } /*else if(last->r == job->r){ //TESTING SORTING BY MEMEORY IF LENGTH IS EQUAL
+            if(job->m <= last->m) {
+                first = job;
+                job->next = temp1;
+                temp1 = last;
+                temp1->next = NULL;
+            }
+            
+        } */
         else{
-            while(temp2 != last && temp2 < job){
+            while(temp2 != last && temp2->r < job->r){
                 temp2 = temp2->next;
                 if(temp2->r > job->r){
                     job->next = temp2;

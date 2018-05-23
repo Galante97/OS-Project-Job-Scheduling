@@ -14,11 +14,12 @@
 
 //SJF
 class HoldQueue1 {
-    Node *first;
-    Node *last;
     
     
 public:
+    Node *first;
+    Node *last;
+    
     int size;
     HoldQueue1();
     // ~HoldQueue1();

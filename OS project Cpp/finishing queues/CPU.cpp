@@ -22,7 +22,7 @@ void CPU::printLL() {
     cout << "CPU LL: ";
     Node *tmp = first;
     while (tmp != NULL) {
-        cout << "[clk: " << tmp->clk_time << ", " << "job: " << tmp->j << "]" << "->";
+        cout << "[clk: " << tmp->clk_time << ", " << "job: " << tmp->j << " time: " << tmp->r <<"]" << "->";
         tmp = tmp->next;
     }
     

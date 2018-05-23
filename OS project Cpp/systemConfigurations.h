@@ -22,6 +22,8 @@ extern int memAvail;
 extern int serialDevicesTotal;
 extern int serialDevicesAvail;
 extern int TimeSlice;
+extern int TimeSliceCounter;
+
 
 const  int SYSTEM_CONFIG = 0;
 const  int JOB_ARRIVAL = 1;

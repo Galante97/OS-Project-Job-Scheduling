@@ -24,6 +24,7 @@ int memAvail;
 int serialDevicesTotal;
 int serialDevicesAvail;
 int TimeSlice;
+int TimeSliceCounter;
 HoldQueue1 HQ1;
 HoldQueue2 HQ2;
 readyQueue rQueue;
@@ -63,6 +64,8 @@ int main(int argc, const char * argv[]) {
     memAvail = 0;
     serialDevicesTotal = 0;
     TimeSlice = 0;
+
+    
     
     //create Queues
     HQ1 = *new HoldQueue1;
@@ -71,16 +74,27 @@ int main(int argc, const char * argv[]) {
     cpu = *new CPU;
     wQueue = *new waitQueue;
     cQueue = *new CompleteQueue;
-    
+
     SubmitQueue SubmitQueue;
+
+    //tests
+//    Node *jobArrival = new Node(JOB_ARRIVAL, 5, 3, 100, 8, 4, 1);
+//    Node *jobArrival2 = new Node(JOB_ARRIVAL, 8, 5, 10, 8, 4, 1);
+//    Node *jobArrival3 = new Node(JOB_ARRIVAL, 8, 6, 50, 8, 4, 1);
+//
+//
+//    HQ1.addInOrder(jobArrival);
+//    HQ1.addInOrder(jobArrival2);
+//    HQ1.addInOrder(jobArrival3);
+//
+//    HQ1.printLL();
     
     //open file
     std::ifstream file("sampleInput.txt");
     std::string str;
-    
+
     //main loop
-    while (std::getline(file, str)) { //iterate through each "Job"
-        
+ while (std::getline(file, str)) { //iterate through each "Job"
         do { //this is a "wait" while loop, if clk doesnt equal clock time
             clk++; //change later to include time slice -> need to incorporate time slice into all of this
             printAllLists();
@@ -95,13 +109,21 @@ int main(int argc, const char * argv[]) {
                 if (cpu.first->r == 0) { //job is done
                     cout << "Job Complete" << endl;
                     cpu.goToFinishedQueue(); //move to finished queue
-                    
-                    HQ1.moveToRQueue();
-                    HQ2.moveToRQueue();
                     rQueue.moveToCPU();
                     wQueue.moveToRQueue();
+                    HQ1.moveToRQueue();
+                    HQ2.moveToRQueue();
+                    
                 } else if (cpu.first->r > 0 && cpu.first->jobGotDevices) { //job HAS DEVICES, now run
                     cpu.first->r--; //running by subracting its r (time)
+                    cout << "TimeSliceCounter: " << TimeSliceCounter << endl;
+                    TimeSliceCounter--;
+                    if (TimeSliceCounter == 0 && cpu.first->r != 0) {
+                        TimeSliceCounter = TimeSlice;
+                        cpu.moveToRQueue();
+                        
+                    }
+                    
                     cout << "Running on CPU" << endl;
                     
                 } else { //job DOES NOT have devices

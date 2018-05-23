@@ -86,6 +86,7 @@ void SubmitQueue::systemConfiguration(string line) {
     serialDevicesTotal = ser_devices;
     serialDevicesAvail = ser_devices;
     TimeSlice = t_slice;
+    TimeSliceCounter = t_slice;
     
     //Node *sysConfig = new Node(clock, mem, ser_devices, t_slice);
     //HQ1.addAtEnd(sysConfig);

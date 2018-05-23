@@ -22,7 +22,7 @@ void readyQueue::printLL() {
     cout << "READY QUEUE LL: ";
     Node *tmp = first;
     while (tmp != NULL) {
-        cout << "[clk: " << tmp->clk_time << ", " << "j: " << tmp->j << "]" << "->";
+        cout << "[clk: " << tmp->clk_time << ", " << "job: " << tmp->j << " time: " << tmp->r <<"]" << "->";
         tmp = tmp->next;
     }
     //  cout << "ReadyQueue Count: " << size;
