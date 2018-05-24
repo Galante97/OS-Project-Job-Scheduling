@@ -29,7 +29,7 @@ public:
     void JobArrival(string line);
     void display(string line);
     
-    //void printFiles();
+    void printFiles();
     
 };
 

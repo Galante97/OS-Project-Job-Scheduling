@@ -20,7 +20,7 @@ public:
     Node *first;
     Node *last;
     int size;
-    bool inUse = false;
+    bool inUse = false; //bankers implementaion (mutex)
     
     CPU();
     // ~CPU();

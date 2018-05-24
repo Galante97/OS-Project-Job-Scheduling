@@ -66,17 +66,19 @@ void HoldQueue2::addAtEnd(Node *job) {
 
 
 void HoldQueue2::moveToRQueue() {
-    if(size > 1){
-        Node *tmp = first;
-        Node *tmp2 = tmp->next;
-        rQueue.addAtEnd(tmp);
-        first = tmp2;
-        --size;
-    }
-    else if(first != NULL){
-        rQueue.addAtEnd(first);
-        first = NULL;
-        --size;
+    if(first != NULL && first->m < memAvail){ //should only move to RQ if there's space in mem
+        if(size > 1){
+            Node *tmp = first;
+            Node *tmp2 = tmp->next;
+            rQueue.addAtEnd(tmp);
+            first = tmp2;
+            --size;
+        }
+        else if(first != NULL){
+            rQueue.addAtEnd(first);
+            first = NULL;
+            --size;
+        }
     }
 }
 

@@ -58,18 +58,18 @@ void HoldQueue1::addInOrder(Node *job) {
         Node *temp1 = first;
         Node *temp2 = first;
         
-        if(temp2->r > job->r){
-            job->next = temp2;
+        if(temp1->r > job->r){ //if job is smaller than first
+            job->next = temp1;
             first = job;
         }
-        else if(last->r < job->r){
+        else if(last->r <= job->r){ //just need <= here because job should go at the end if they're equal
             temp1 = last;
             temp1->next = job;
             job->next = NULL;
             last = job;
         }
         else{
-            while(temp2 != last && temp2->r < job->r){
+            while(temp2 != last && temp2->r <= job->r){ //implements FIFO w/in SJF by setting job before the first node w/ higher runtime
                 temp2 = temp2->next;
                 if(temp2->r > job->r){
                     job->next = temp2;
@@ -79,33 +79,24 @@ void HoldQueue1::addInOrder(Node *job) {
                     temp1 = temp1->next;
                 }
             }
-            
-            if(temp1->r == job->r){ //TESTING SORTING BY MEMEORY IF LENGTH IS EQUAL
-                if(job->m <= last->m) {
-                    first = job;
-                    job->next = temp1;
-                    temp1 = last;
-                    temp1->next = NULL;
-                }
-                
-            }
-            
         }
     }
 }
 
 
 void HoldQueue1::moveToRQueue() {
-    if(size > 1){
-        Node *tmp = first;
-        Node *tmp2 = tmp->next;
-        rQueue.addAtEnd(tmp);
-        first = tmp2;
-        --size;
-    }
-    else if(first != NULL){
-        rQueue.addAtEnd(first);
-        first = NULL;
-        --size;
+    if(first != NULL && first->m < memAvail){ //should only move to RQ if there's space in mem
+        if(size > 1){
+            Node *tmp = first;
+            Node *tmp2 = tmp->next;
+            rQueue.addAtEnd(tmp);
+            first = tmp2;
+            --size;
+        }
+        else if(first != NULL){
+            rQueue.addAtEnd(first);
+            first = NULL;
+            --size;
+        }
     }
 }

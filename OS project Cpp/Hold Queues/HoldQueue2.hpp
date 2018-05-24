@@ -13,11 +13,10 @@
 #include "node.hpp"
 
 class HoldQueue2 {
+
+public:
     Node *first;
     Node *last;
-    
-    
-public:
     int size;
     HoldQueue2();
     // ~HoldQueue2();

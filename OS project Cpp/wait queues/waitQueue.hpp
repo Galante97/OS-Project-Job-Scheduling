@@ -13,11 +13,10 @@
 #include "node.hpp"
 
 class waitQueue {
+public:
     Node *first;
     Node *last;
     
-    
-public:
     int size;
     waitQueue();
     // ~waitQueue();

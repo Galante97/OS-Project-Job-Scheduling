@@ -20,7 +20,7 @@ public:
     Node *last;
     
     int size;
-    bool Adding = false;
+    bool Adding = false; //Bankers (mutex)
     
     
     readyQueue();

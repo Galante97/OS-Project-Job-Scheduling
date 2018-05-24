@@ -152,7 +152,7 @@ void SubmitQueue::display(string line){
     stringstream ss(line);
     ss >> clock;
     
-    // printFiles();
+     printFiles();
     
     //Node *display = new Node(DISPLAY, clock);
     //HQ1.addAtEnd(display);
@@ -161,36 +161,162 @@ void SubmitQueue::display(string line){
     //printf("clock = %d\n", display.clk_time);
 }
 
-/*
- void SubmitQueue::printFiles() {
- //int *array = rQueue.getContentsForJSON();
- for (int i = 2 - 1; i >= 0; i--) {
- cout << "ijenvjn";
- cout << array[i];
- }
- json j2 = {
- {"current_time", clk},
- {"total_memory", memory},
- {"available_memory", memory},
- {"total_devices", serialDevices},
- {"available_devices", serialDevices},
- {"quantum", TimeSlice},
- {"turnaround", " "},
- {"weighted_turnaround", " "},
- {"submitQ", {1, 0, 2}},
- {"holdq2", {1, 0, 2}},
- {"holdq1", {1, 0, 2}},
- {"CompletedQ", {1, 0, 2}},
- {"waitQ", {1, 0, 2}},
- {"Jobs", {{44,4,4}, {1,23,4}}}
+
+void SubmitQueue::printFiles() {
+  
+//    json j2 = {
+//        {"current_time", clk},
+//        {"total_memory", memory},
+//        {"available_memory", memory},
+//        {"total_devices", serialDevices},
+//        {"available_devices", serialDevices},
+//        {"quantum", TimeSlice},
+//        {"turnaround", " "},
+//        {"weighted_turnaround", " "},
+//        {"submitQ", {1, 0, 2}},
+//        {"holdq2", {1, 0, 2}},
+//        {"holdq1", {1, 0, 2}},
+//        {"CompletedQ", {1, 0, 2}},
+//        {"waitQ", {1, 0, 2}},
+//        {"Jobs", {{44,4,4}, {1,23,4}}}
+//
+//    };
+    ofstream f("myfile.json");
+   
  
- };
- 
- std::ofstream file("key.json");
- file << j2;
- 
- }
- */
+    f << "Current_time: " << clk << endl;
+    f << "Total Memory: " << memTotal << endl;
+    f << "Available Memory: " << memAvail << endl;
+    f << "Total Devices: " << serialDevicesTotal << endl;
+    f << "Available Devices: " << serialDevicesAvail << endl;
+    f << "Quantum: " << TimeSlice << endl;
+    if (cpu.first != NULL)
+        f << "CPU:" << cpu.first << endl;
+    else
+         f << "CPU:" << endl;
+    f << "Ready Queue: " << endl;
+    Node *tmp = rQueue.first;
+    while (tmp != NULL) {
+        f << tmp->j;
+        f << "," << endl;
+        tmp = tmp->next;
+    }
+    f << endl;
+    f << "Wait Queue: " << endl;
+    Node *tmp2 = wQueue.first;
+    while (tmp2 != NULL) {
+        f << tmp2->j;
+        f << "," << endl;
+        tmp2 = tmp2->next;
+    }
+    f << endl;
+    f << "Hold Queue 2: " << endl;
+    Node *tmp3 = HQ2.first;
+    while (tmp3 != NULL) {
+        f << tmp3->j;
+        f << "," << endl;
+        tmp3 = tmp3->next;
+    }
+    f << endl;
+    f << "Hold Queue 1: " << endl;
+    Node *tmp4 = HQ1.first;
+    while (tmp4 != NULL) {
+        f << tmp4->j;
+        f << "," << endl;
+        tmp4 = tmp4->next;
+    }
+    f << endl;
+    f << "Complete Queue: " << endl;
+    Node *tmp5 = cQueue.first;
+    while (tmp5 != NULL) {
+        f << tmp5->j;
+        f << "," << endl;
+        tmp5 = tmp5->next;
+
+    }
+    f << endl;
+    f << "Wait Queue: " << endl;
+    Node *tmp6 = wQueue.first;
+    while (tmp6 != NULL) {
+        f << tmp6->j;
+        f << "," << endl;
+        tmp6 = tmp6->next;
+        
+    }
+    f << endl;
+    f << "JOBS: ";
+    Node *tmp7 = rQueue.first;
+    while (tmp7 != NULL) {
+        f << "{ ";
+        f << "Arrival_time: " << tmp7->clk_time << endl;
+        f << "devices_allocated: " << tmp7->d << endl;
+        f << "ID: " << tmp7->j << endl;
+        f << "remaining_time: " << tmp7->r << endl;
+        f << " }" << endl;
+        tmp7 = tmp7->next;
+    }
+    f << endl;
+    Node *tmp8 = wQueue.first;
+    while (tmp8 != NULL) {
+        f << "{ ";
+        f << "Arrival_time: " << tmp8->clk_time << endl;
+        f << "devices_allocated: " << tmp8->d << endl;
+        f << "ID: " << tmp8->j << endl;
+        f << "remaining_time: " << tmp8->r << endl;
+        f << " }" << endl;
+        tmp8 = tmp8->next;
+    }
+    f << endl;
+    Node *tmp9 = wQueue.first;
+    while (tmp9 != NULL) {
+        f << "{ ";
+        f << "Arrival_time: " << tmp9->clk_time << endl;
+        f << "devices_allocated: " << tmp9->d << endl;
+        f << "ID: " << tmp9->j << endl;
+        f << "remaining_time: " << tmp9->r << endl;
+        f << " }" << endl;
+        tmp9 = tmp9->next;
+    }
+    f << endl;
+    Node *tmp10 = HQ1.first;
+    while (tmp10 != NULL) {
+        f << "{ ";
+        f << "Arrival_time: " << tmp10->clk_time << endl;
+        f << "devices_allocated: " << tmp10->d << endl;
+        f << "ID: " << tmp10->j << endl;
+        f << "remaining_time: " << tmp10->r << endl;
+        f << " }" << endl;
+        tmp10 = tmp10->next;
+    }
+    f << endl;
+    Node *tmp11 = cQueue.first;
+    while (tmp11 != NULL) {
+        f << "{ ";
+        f << "Arrival_time: " << tmp11->clk_time << endl;
+        f << "devices_allocated: " << tmp11->d << endl;
+        f << "ID: " << tmp11->j << endl;
+        f << "remaining_time: " << tmp11->r << endl;
+         f << " }" << endl;
+        tmp11 = tmp11->next;
+        
+    }
+    f << endl;
+    Node *tmp12 = wQueue.first;
+    while (tmp12 != NULL) {
+        f << "{ ";
+        f << "Arrival_time: " << tmp12->clk_time << endl;
+        f << "devices_allocated: " << tmp12->d << endl;
+        f << "ID: " << tmp12->j << endl;
+        f << "remaining_time: " << tmp12->r << endl;
+        f << " }" << endl;
+        tmp12 = tmp12->next;
+        
+    }
+    
+    
+    
+}
+
 
 
 
