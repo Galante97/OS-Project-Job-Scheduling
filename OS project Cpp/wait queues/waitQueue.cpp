@@ -2,9 +2,9 @@
 //  waitQueue.cpp
 //  OS project Cpp
 //
-//  Created by James Galante on 5/15/18.
-//  Copyright © 2018 James Galante. All rights reserved.
 //
+//  Created by James Galante, Natatie Ayling and Josh Weinick
+
 
 #include "waitQueue.hpp"
 #include "Node.hpp"
@@ -19,15 +19,15 @@ waitQueue::waitQueue() { //constructor
 }
 
 void waitQueue::printLL() {
-    cout << "WAIT QUEUE LL: ";
+    cout << "Wait queue LL: " << endl;
     Node *tmp = first;
     while (tmp != NULL) {
         cout << "[clk: " << tmp->clk_time << ", " << "j: " << tmp->j << "]" << "->";
         tmp = tmp->next;
     }
-
+    printf("\n");
     //cout << "waitQueue Count: " << size;
-    cout << endl;
+    //cout << endl;
 }
 
 void waitQueue::addFirst(Node *job) {
@@ -58,17 +58,19 @@ void waitQueue::addAtEnd(Node *job) {
 
 
 void waitQueue::moveToRQueue() {
-    if(size > 1){
-        Node *tmp = first;
-        Node *tmp2 = tmp->next;
-        rQueue.addAtEnd(tmp);
-        first = tmp2;
-        --size;
-    }
-    else if(first != NULL){
-        rQueue.addAtEnd(first);
-        first = NULL;
-        --size;
+    if(first != NULL && first->numDevicesRequested < serialDevicesAvail && first->m < memAvail){
+        if(size > 1){
+            Node *tmp = first;
+            Node *tmp2 = tmp->next;
+            rQueue.addAtEnd(tmp);
+            first = tmp2;
+            --size;
+        }
+        else if(first != NULL){
+            rQueue.addAtEnd(first);
+            first = NULL;
+            --size;
+        }
     }
 }
 

@@ -2,9 +2,9 @@
 //  HoldQueue2.cpp
 //  OS project Cpp
 //
-//  Created by James Galante on 5/13/18.
-//  Copyright © 2018 James Galante. All rights reserved.
 //
+//  Created by James Galante, Natatie Ayling and Josh Weinick
+
 
 #include "HoldQueue2.hpp"
 #include "systemConfigurations.h"
@@ -50,6 +50,7 @@ void HoldQueue2::addFirst(Node *job) {
 
 void HoldQueue2::addAtEnd(Node *job) {
     //add a new node to the end of the list
+    
     if (size == 0) {
         addFirst(job);
     } else {
@@ -62,6 +63,8 @@ void HoldQueue2::addAtEnd(Node *job) {
         job->next = NULL;
         last = job->next;
     }
+ 
+
 }
 
 
@@ -80,5 +83,6 @@ void HoldQueue2::moveToRQueue() {
             --size;
         }
     }
+
 }
 

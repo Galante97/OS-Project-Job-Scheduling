@@ -1,3 +1,7 @@
+//
+//  Created by James Galante, Natatie Ayling and Josh Weinick
+
+
 #include "HoldQueue1.hpp"
 #include "systemConfigurations.h"
 #include "Node.hpp"
@@ -81,10 +85,13 @@ void HoldQueue1::addInOrder(Node *job) {
             }
         }
     }
+    
+
 }
 
 
 void HoldQueue1::moveToRQueue() {
+    
     if(first != NULL && first->m < memAvail){ //should only move to RQ if there's space in mem
         if(size > 1){
             Node *tmp = first;

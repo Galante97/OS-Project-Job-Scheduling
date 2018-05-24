@@ -2,9 +2,8 @@
 //  submitQueue.cpp
 //  OS project Cpp
 //
-//  Created by James Galante on 5/8/18.
-//  Copyright © 2018 James Galante. All rights reserved.
 //
+//  Created by James Galante, Natatie Ayling and Josh Weinick
 
 #include "submitQueue.hpp"
 
@@ -23,12 +22,23 @@ void SubmitQueue::inputCommand(string line)  {
     
     switch(line.at(0)){
         case 'C' : //System Configuration
+            cout << "C" << endl;
             systemConfiguration(line);
             break;
         case 'A' : //Job Arrival
+            cout << "A" << endl;
+            JobArrival(line);
+            break;
+        case 'Q' : //reqeust
+            cout << "Q" << endl;
+            JobArrival(line);
+            break;
+        case 'L' : //realase
+            cout << "L" << endl;
             JobArrival(line);
             break;
         case 'D' : //Display
+            cout << "D" << endl;
             display(line);
             break;
             
@@ -88,17 +98,7 @@ void SubmitQueue::systemConfiguration(string line) {
     TimeSlice = t_slice;
     TimeSliceCounter = t_slice;
     
-    //Node *sysConfig = new Node(clock, mem, ser_devices, t_slice);
-    //HQ1.addAtEnd(sysConfig);
-    
-    //HQ1.addAtFront(*sysConfig);
-    
-    //test of node
-    //printf("clock = %d\n", sysConfig.clk_time);
-    //printf("memory = %d\n", sysConfig.m);
-    //printf("serial devices = %d\n", sysConfig.s);
-    //printf("time quantum = %d\n", sysConfig.q);
-    
+
 }
 void SubmitQueue::JobArrival(string line){
     int clock;
@@ -132,14 +132,54 @@ void SubmitQueue::JobArrival(string line){
         
     }
     
-    //test of node
-    //    cout << endl;
-    //    printf("clock = %d\n", clk);
-    //    printf("memory required = %d\n",memory);
-    //    printf("serial devices required = %d\n", serialDevices);
-    //    printf("units of time needed = %d\n", TimeSlice);
-    //    cout << endl;
+}
+
+void SubmitQueue::deviceRequest(string line){
+    int clock;
+    int job_num;
+    int device_num;
     
+    //erase all the useless text and leave nothing but the values
+    line.erase(std::find(line.begin(), line.end(), 'Q')); // Erase Q
+    line.erase(std::find(line.begin(), line.end(), 'J')); // Erase J
+    line.erase(std::find(line.begin(), line.end(), 'D')); // Erase D
+    string::iterator x = remove(line.begin(), line.end(), '='); //Erase =
+    line.erase(x, line.end());
+    
+    stringstream ss(line);
+    ss >> clock >> job_num >> device_num;
+    
+    if(cpu.first->j == job_num){
+        cpu.first->numDevicesRequested += device_num;
+        if(serialDevicesAvail < device_num)
+            cpu.moveToWaitQueue();
+        else{
+            serialDevicesAvail -= device_num;
+            cpu.first->numDevicesUsing += device_num;
+            cpu.moveToRQueue();
+        }
+    }
+}
+
+void SubmitQueue::deviceRelease(string line){
+    int clock;
+    int job_num;
+    int device_num;
+    
+    //erase all the useless text and leave nothing but the values
+    line.erase(std::find(line.begin(), line.end(), 'L')); // Erase L
+    line.erase(std::find(line.begin(), line.end(), 'J')); // Erase J
+    line.erase(std::find(line.begin(), line.end(), 'D')); // Erase D
+    string::iterator x = remove(line.begin(), line.end(), '='); //Erase =
+    line.erase(x, line.end());
+    
+    stringstream ss(line);
+    ss >> clock >> job_num >> device_num;
+    
+    if(cpu.first->j == job_num){
+        serialDevicesAvail += device_num;
+        cpu.first->numDevicesUsing -= device_num;
+    }
     
 }
 
@@ -152,36 +192,22 @@ void SubmitQueue::display(string line){
     stringstream ss(line);
     ss >> clock;
     
-     printFiles();
-    
-    //Node *display = new Node(DISPLAY, clock);
-    //HQ1.addAtEnd(display);
-    
-    //test of node
-    //printf("clock = %d\n", display.clk_time);
+    if (clock == 9999) { //dump system
+        HQ1.first = NULL;
+        HQ2.first = NULL;
+        wQueue.first = NULL;
+        rQueue.first = NULL;
+        cpu.first = NULL;
+        cQueue.first = NULL;
+    }
+    printFiles();
+    cout << "JSON FILE CREATED" << endl;
 }
 
 
 void SubmitQueue::printFiles() {
-  
-//    json j2 = {
-//        {"current_time", clk},
-//        {"total_memory", memory},
-//        {"available_memory", memory},
-//        {"total_devices", serialDevices},
-//        {"available_devices", serialDevices},
-//        {"quantum", TimeSlice},
-//        {"turnaround", " "},
-//        {"weighted_turnaround", " "},
-//        {"submitQ", {1, 0, 2}},
-//        {"holdq2", {1, 0, 2}},
-//        {"holdq1", {1, 0, 2}},
-//        {"CompletedQ", {1, 0, 2}},
-//        {"waitQ", {1, 0, 2}},
-//        {"Jobs", {{44,4,4}, {1,23,4}}}
-//
-//    };
-    ofstream f("myfile.json");
+    string outputName = "Output_time_" + std::to_string(clk) + ".json";
+    ofstream f(outputName);
    
  
     f << "Current_time: " << clk << endl;
@@ -191,7 +217,7 @@ void SubmitQueue::printFiles() {
     f << "Available Devices: " << serialDevicesAvail << endl;
     f << "Quantum: " << TimeSlice << endl;
     if (cpu.first != NULL)
-        f << "CPU:" << cpu.first << endl;
+        f << "CPU:" << cpu.first->j << endl;
     else
          f << "CPU:" << endl;
     f << "Ready Queue: " << endl;
@@ -247,9 +273,9 @@ void SubmitQueue::printFiles() {
     f << "JOBS: ";
     Node *tmp7 = rQueue.first;
     while (tmp7 != NULL) {
-        f << "{ ";
+        f << "{ " << endl;
         f << "Arrival_time: " << tmp7->clk_time << endl;
-        f << "devices_allocated: " << tmp7->d << endl;
+        f << "devices_allocated: " << tmp7->s << endl;
         f << "ID: " << tmp7->j << endl;
         f << "remaining_time: " << tmp7->r << endl;
         f << " }" << endl;
@@ -258,9 +284,9 @@ void SubmitQueue::printFiles() {
     f << endl;
     Node *tmp8 = wQueue.first;
     while (tmp8 != NULL) {
-        f << "{ ";
+        f << "{ " << endl;
         f << "Arrival_time: " << tmp8->clk_time << endl;
-        f << "devices_allocated: " << tmp8->d << endl;
+        f << "devices_allocated: " << tmp8->s << endl;
         f << "ID: " << tmp8->j << endl;
         f << "remaining_time: " << tmp8->r << endl;
         f << " }" << endl;
@@ -269,9 +295,9 @@ void SubmitQueue::printFiles() {
     f << endl;
     Node *tmp9 = wQueue.first;
     while (tmp9 != NULL) {
-        f << "{ ";
+        f << "{ " << endl;
         f << "Arrival_time: " << tmp9->clk_time << endl;
-        f << "devices_allocated: " << tmp9->d << endl;
+        f << "devices_allocated: " << tmp9->s << endl;
         f << "ID: " << tmp9->j << endl;
         f << "remaining_time: " << tmp9->r << endl;
         f << " }" << endl;
@@ -280,9 +306,9 @@ void SubmitQueue::printFiles() {
     f << endl;
     Node *tmp10 = HQ1.first;
     while (tmp10 != NULL) {
-        f << "{ ";
+        f << "{ " << endl;
         f << "Arrival_time: " << tmp10->clk_time << endl;
-        f << "devices_allocated: " << tmp10->d << endl;
+        f << "devices_allocated: " << tmp10->s << endl;
         f << "ID: " << tmp10->j << endl;
         f << "remaining_time: " << tmp10->r << endl;
         f << " }" << endl;
@@ -291,9 +317,9 @@ void SubmitQueue::printFiles() {
     f << endl;
     Node *tmp11 = cQueue.first;
     while (tmp11 != NULL) {
-        f << "{ ";
+        f << "{ " << endl;
         f << "Arrival_time: " << tmp11->clk_time << endl;
-        f << "devices_allocated: " << tmp11->d << endl;
+        f << "devices_allocated: " << tmp11->s << endl;
         f << "ID: " << tmp11->j << endl;
         f << "remaining_time: " << tmp11->r << endl;
          f << " }" << endl;
@@ -303,9 +329,9 @@ void SubmitQueue::printFiles() {
     f << endl;
     Node *tmp12 = wQueue.first;
     while (tmp12 != NULL) {
-        f << "{ ";
+        f << "{ " << endl;
         f << "Arrival_time: " << tmp12->clk_time << endl;
-        f << "devices_allocated: " << tmp12->d << endl;
+        f << "devices_allocated: " << tmp12->s << endl;
         f << "ID: " << tmp12->j << endl;
         f << "remaining_time: " << tmp12->r << endl;
         f << " }" << endl;

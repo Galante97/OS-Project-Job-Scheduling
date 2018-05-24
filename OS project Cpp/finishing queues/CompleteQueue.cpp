@@ -2,9 +2,9 @@
 //  CompleteQueue.cpp
 //  OS project Cpp
 //
-//  Created by James Galante on 5/15/18.
-//  Copyright © 2018 James Galante. All rights reserved.
 //
+//  Created by James Galante, Natatie Ayling and Josh Weinick
+
 
 #include "CompleteQueue.hpp"
 #include "systemConfigurations.h"

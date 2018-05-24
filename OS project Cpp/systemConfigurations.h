@@ -2,9 +2,9 @@
 //  systemConfigurations.h
 //  OS project Cpp
 //
-//  Created by James Galante on 5/9/18.
-//  Copyright © 2018 James Galante. All rights reserved.
 //
+//  Created by James Galante, Natatie Ayling and Josh Weinick
+
 
 #ifndef systemConfigurations_h
 #define systemConfigurations_h

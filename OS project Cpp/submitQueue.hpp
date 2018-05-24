@@ -2,9 +2,9 @@
 //  submitQueue.hpp
 //  OS project Cpp
 //
-//  Created by James Galante on 5/8/18.
-//  Copyright © 2018 James Galante. All rights reserved.
 //
+//  Created by James Galante, Natatie Ayling and Josh Weinick
+
 
 #ifndef submitQueue_hpp
 #define submitQueue_hpp
@@ -27,6 +27,8 @@ public:
     bool checkCLKTime(string line);
     void systemConfiguration(string line);
     void JobArrival(string line);
+    void deviceRequest(string line);
+    void deviceRelease(string line);
     void display(string line);
     
     void printFiles();

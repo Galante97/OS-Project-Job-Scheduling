@@ -2,9 +2,9 @@
 //  CPU.cpp
 //  OS project Cpp
 //
-//  Created by James Galante on 5/15/18.
-//  Copyright © 2018 James Galante. All rights reserved.
 //
+//  Created by James Galante, Natatie Ayling and Josh Weinick
+
 
 #include "CPU.hpp"
 #include "Node.hpp"
@@ -35,7 +35,7 @@ bool CPU::requestDevices(){
     cpu.printLL();
     if(first->s <= serialDevicesAvail){
         serialDevicesAvail -= first->s;
-        first->jobGotDevices = true;
+        //first->jobGotDevices = true;
         return true;
     }
     else {
@@ -77,9 +77,9 @@ void CPU::moveToRQueue() { //if the job requests & is granted devices
 
 void CPU::goToFinishedQueue() {
     if(first != NULL) {
+        TimeSliceCounter = TimeSlice;
         cQueue.addAtEnd(first);
-        memAvail += first->m;
-        serialDevicesAvail += first->s;
+        serialDevicesAvail += first->numDevicesUsing;
         first = NULL;
         --size;
     }

@@ -2,9 +2,8 @@
 //  node.cpp
 //  OS project Cpp
 //
-//  Created by James Galante on 5/9/18.
-//  Copyright © 2018 James Galante. All rights reserved.
 //
+//  Created by James Galante, Natatie Ayling and Josh Weinick
 
 #include "node.hpp"
 #include <iostream>
@@ -32,6 +31,8 @@ Node::Node(int type, int clk, int J, int M, int S, int R, int P) { //Job arrival
     s = S;
     r = R;
     p = P;
+    numDevicesRequested = 0;
+    numDevicesUsing = 0;
 }
 
 Node::Node(int type, int clk, int J, int D) { //Request for device OR release for device
@@ -48,8 +49,6 @@ Node::Node(int type, int clk) { //display
     //prev = NULL;
     nType = type;
     clk_time = clk;
-
+    
 }
-
-
 

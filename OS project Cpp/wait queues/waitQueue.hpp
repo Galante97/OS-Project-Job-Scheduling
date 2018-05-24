@@ -2,9 +2,9 @@
 //  waitQueue.hpp
 //  OS project Cpp
 //
-//  Created by James Galante on 5/15/18.
-//  Copyright © 2018 James Galante. All rights reserved.
 //
+//  Created by James Galante, Natatie Ayling and Josh Weinick
+
 
 #ifndef waitQueue_hpp
 #define waitQueue_hpp

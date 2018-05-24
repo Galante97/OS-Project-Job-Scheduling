@@ -2,9 +2,9 @@
 //  HoldQueue1.hpp
 //  OS project Cpp
 //
-//  Created by James Galante on 5/13/18.
-//  Copyright © 2018 James Galante. All rights reserved.
 //
+//  Created by James Galante, Natatie Ayling and Josh Weinick
+
 
 #ifndef HoldQueue1_hpp
 #define HoldQueue1_hpp

@@ -2,9 +2,9 @@
 //  readyQueue.cpp
 //  OS project Cpp
 //
-//  Created by James Galante on 5/15/18.
-//  Copyright © 2018 James Galante. All rights reserved.
 //
+//  Created by James Galante, Natatie Ayling and Josh Weinick
+
 
 #include "readyQueue.hpp"
 #include "Node.hpp"
@@ -39,7 +39,7 @@ void readyQueue::addFirst(Node *job) {
 }
 
 void readyQueue::addAtEnd(Node *job) {
-
+    memAvail -= job->m;
     Adding = true;
     //add a new node to the end of the list
     if (size == 0) {
@@ -60,13 +60,15 @@ void readyQueue::addAtEnd(Node *job) {
         moveToCPU();
     }
 
-    
+   
+
 }
 
 void readyQueue::moveToCPU() {
+    
     if(cpu.inUse == false && first != NULL){
-        memAvail -= first->m;
-        if(size >= 1){
+        memAvail += first->m;
+        if(size > 1){
             Node *tmp = first;
             Node *tmp2 = tmp->next;
             cpu.addFirst(tmp);
@@ -74,24 +76,16 @@ void readyQueue::moveToCPU() {
             --size;
         }
         else if(first != NULL){
-            rQueue.addAtEnd(first);
+            
+            cpu.addFirst(first);
             first = NULL;
             --size;
         }
     }
+    
 }
 
 
-/*int *readyQueue::getContentsForJSON() {
- Node *tmp = first;
- //    while (tmp != NULL) {
- //        cout << "[clk: " << tmp->clk_time << ", " << "j: " << tmp->j << "]" << "->";
- //        tmp = tmp->next;
- //    }
- 
- int r[3] = {7,8,9};
- return *r;
- }*/
 
 
 

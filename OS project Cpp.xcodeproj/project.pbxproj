@@ -31,7 +31,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		A14DAF8C20B2511A00C98D83 /* json.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = json.hpp; sourceTree = "<group>"; };
 		A1717DF920A8E526002C7D84 /* HoldQueue1.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = HoldQueue1.cpp; sourceTree = "<group>"; };
 		A1717DFA20A8E526002C7D84 /* HoldQueue1.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = HoldQueue1.hpp; sourceTree = "<group>"; };
 		A1717DFC20A8E533002C7D84 /* HoldQueue2.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = HoldQueue2.cpp; sourceTree = "<group>"; };
@@ -116,7 +115,6 @@
 		A187182220A288550034B5F0 /* OS project Cpp */ = {
 			isa = PBXGroup;
 			children = (
-				A14DAF8C20B2511A00C98D83 /* json.hpp */,
 				A198577120A3AE500033323D /* systemConfigurations.h */,
 				A187182320A288550034B5F0 /* main.cpp */,
 				A198576A20A28E140033323D /* submitQueue.hpp */,
